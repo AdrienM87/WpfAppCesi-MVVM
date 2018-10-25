@@ -64,8 +64,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Migrations\201810251248054_ajoutTableReservation.cs" />
+    <Compile Include="Migrations\201810251248054_ajoutTableReservation.Designer.cs">
+      <DependentUpon>201810251248054_ajoutTableReservation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\ChambresSet.cs" />
     <Compile Include="ClassMain.cs" />
+    <Compile Include="Models\ReservationSet.cs" />
     <Compile Include="Process.cs" />
     <Compile Include="Models\HotelsSet.cs" />
     <Compile Include="Migrations\201810251213211_ajoutLocalisation.cs" />
@@ -111,6 +116,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810251226149_ajoutPays.resx">
       <DependentUpon>201810251226149_ajoutPays.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810251248054_ajoutTableReservation.resx">
+      <DependentUpon>201810251248054_ajoutTableReservation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -10,11 +10,15 @@
         <TabControl HorizontalAlignment="Left" Height="399" Margin="10,10,0,0" VerticalAlignment="Top" Width="772">
             <TabItem Header="TabItem">
                 <Grid Background="#FFE5E5E5">
-                    <DataGrid HorizontalAlignment="Left" Height="304" Margin="10,10,0,0" VerticalAlignment="Top" Width="746"/>
-                    <Button x:Name="btAjouterChambre" Content="Ajouter chambre" HorizontalAlignment="Left" Margin="10,334,0,0" VerticalAlignment="Top" Width="110" Height="27" Click="btAjouterChambre_Click"/>
-                    <Button x:Name="btModifierChambre" Content="Modifier chambre" HorizontalAlignment="Left" Margin="134,334,0,0" VerticalAlignment="Top" Width="110" Height="27" Click="btModifierChambre_Click"/>
-                    <Button x:Name="btSupprimerChambre" Content="Supprimer chambre" HorizontalAlignment="Left" Margin="262,334,0,0" VerticalAlignment="Top" Width="121" Height="27" Click="btSupprimerChambre_Click"/>
-                    <Button x:Name="btReserverChambre" Content="Réserver" HorizontalAlignment="Left" Margin="635,334,0,0" VerticalAlignment="Top" Width="121" Height="27" Click="btReserverChambre_Click"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="37*"/>
+                        <ColumnDefinition Width="346*"/>
+                    </Grid.ColumnDefinitions>
+                    <DataGrid HorizontalAlignment="Left" Height="304" Margin="10,10,0,0" VerticalAlignment="Top" Width="746" Grid.ColumnSpan="2"/>
+                    <Button x:Name="btAjouterChambre" Content="Ajouter chambre" HorizontalAlignment="Left" Margin="10,334,0,0" VerticalAlignment="Top" Width="110" Height="27" Click="btAjouterChambre_Click" Grid.ColumnSpan="2"/>
+                    <Button x:Name="btModifierChambre" Content="Modifier chambre" HorizontalAlignment="Left" Margin="59.989,334,0,0" VerticalAlignment="Top" Width="110" Height="27" Click="btModifierChambre_Click" Grid.Column="1"/>
+                    <Button x:Name="btSupprimerChambre" Content="Supprimer chambre" HorizontalAlignment="Left" Margin="187.989,334,0,0" VerticalAlignment="Top" Width="121" Height="27" Click="btSupprimerChambre_Click" Grid.Column="1"/>
+                    <Button x:Name="btReserverChambre" Content="Réserver" HorizontalAlignment="Left" Margin="560.989,334,0,0" VerticalAlignment="Top" Width="121" Height="27" Click="btReserverChambre_Click" Grid.Column="1"/>
 
                 </Grid>
             </TabItem>
