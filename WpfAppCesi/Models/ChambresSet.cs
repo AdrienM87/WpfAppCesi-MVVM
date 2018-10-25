@@ -17,5 +17,9 @@ namespace WpfAppCesi
         public bool Climatisation { get; set; }
 
         public int NbLits { get; set; }
+
+        public int HotelsSetId { get; set; }
+
+        public HotelsSet Hotel { get; set; }
     }
 }

@@ -80,6 +80,14 @@
     <Compile Include="Migrations\201810251330129_testAjoutRelationClientReservation.Designer.cs">
       <DependentUpon>201810251330129_testAjoutRelationClientReservation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810251333140_AjoutRelationChambreHotel.cs" />
+    <Compile Include="Migrations\201810251333140_AjoutRelationChambreHotel.Designer.cs">
+      <DependentUpon>201810251333140_AjoutRelationChambreHotel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810251334413_CorrectionNommageRelationChambreHotel.cs" />
+    <Compile Include="Migrations\201810251334413_CorrectionNommageRelationChambreHotel.Designer.cs">
+      <DependentUpon>201810251334413_CorrectionNommageRelationChambreHotel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\ChambresSet.cs" />
     <Compile Include="ClassMain.cs" />
     <Compile Include="Models\ReservationSet.cs" />
@@ -140,6 +148,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810251330129_testAjoutRelationClientReservation.resx">
       <DependentUpon>201810251330129_testAjoutRelationClientReservation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810251333140_AjoutRelationChambreHotel.resx">
+      <DependentUpon>201810251333140_AjoutRelationChambreHotel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810251334413_CorrectionNommageRelationChambreHotel.resx">
+      <DependentUpon>201810251334413_CorrectionNommageRelationChambreHotel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
