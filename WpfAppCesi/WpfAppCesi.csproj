@@ -88,6 +88,10 @@
     <Compile Include="Migrations\201810251334413_CorrectionNommageRelationChambreHotel.Designer.cs">
       <DependentUpon>201810251334413_CorrectionNommageRelationChambreHotel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810251431173_ajoutRelationChambreReservation.cs" />
+    <Compile Include="Migrations\201810251431173_ajoutRelationChambreReservation.Designer.cs">
+      <DependentUpon>201810251431173_ajoutRelationChambreReservation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\ChambresSet.cs" />
     <Compile Include="ClassMain.cs" />
     <Compile Include="Models\ReservationSet.cs" />
@@ -155,11 +159,15 @@
     <EmbeddedResource Include="Migrations\201810251334413_CorrectionNommageRelationChambreHotel.resx">
       <DependentUpon>201810251334413_CorrectionNommageRelationChambreHotel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810251431173_ajoutRelationChambreReservation.resx">
+      <DependentUpon>201810251431173_ajoutRelationChambreReservation.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\ModelBooking.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -21,5 +21,7 @@ namespace WpfAppCesi
         public int HotelsSetId { get; set; }
 
         public HotelsSet Hotel { get; set; }
+
+        public virtual ICollection<ReservationSet> ReservationsSet { get; set; }
     }
 }

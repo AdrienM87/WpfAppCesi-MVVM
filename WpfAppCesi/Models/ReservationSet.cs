@@ -20,5 +20,9 @@
         public int ClientsSetId { get; set; }
 
         public ClientsSet Client { get; set; }
+
+        public int ChambresSetId { get; set; }
+
+        public ChambresSet Chambres { get; set; }
     }
 }
