@@ -64,22 +64,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ChambresSet.cs">
-      <DependentUpon>ModelBooking.tt</DependentUpon>
-    </Compile>
+    <Compile Include="ChambresSet.cs" />
     <Compile Include="ClassMain.cs" />
-    <Compile Include="HotelsSet.cs">
-      <DependentUpon>ModelBooking.tt</DependentUpon>
-    </Compile>
+    <Compile Include="HotelsSet.cs" />
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="ModelBooking.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelBooking.tt</DependentUpon>
-    </Compile>
-    <Compile Include="UsersSet.cs">
-      <DependentUpon>ModelBooking.tt</DependentUpon>
-    </Compile>
+    <Compile Include="UsersSet.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -94,16 +83,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ModelBooking.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelBooking.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ModelBooking.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelBooking.edmx</DependentUpon>
-    </Compile>
+    <Compile Include="ModelBooking.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -121,13 +101,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="ModelBooking.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ModelBooking.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="ModelBooking.edmx.diagram">
-      <DependentUpon>ModelBooking.edmx</DependentUpon>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -136,18 +109,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="ModelBooking.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ModelBooking.Context.cs</LastGenOutput>
-      <DependentUpon>ModelBooking.edmx</DependentUpon>
-    </Content>
-    <Content Include="ModelBooking.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelBooking.edmx</DependentUpon>
-      <LastGenOutput>ModelBooking.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
