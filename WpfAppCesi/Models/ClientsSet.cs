@@ -20,6 +20,6 @@ namespace WpfAppCesi
         [Required]
         public DateTime DateNaissance { get; set; }
 
-        //public virtual ICollection<ReservationSet> ReservationsSet { get; set; }
+        public virtual ICollection<ReservationSet> ReservationsSet { get; set; }
     }
 }

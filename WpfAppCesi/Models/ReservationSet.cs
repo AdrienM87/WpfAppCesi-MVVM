@@ -16,5 +16,9 @@
 
         [Required]
         public DateTime dateFin { get; set; }
+
+        public int ClientsSetId { get; set; }
+
+        public ClientsSet Client { get; set; }
     }
 }

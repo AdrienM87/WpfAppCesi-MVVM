@@ -76,6 +76,10 @@
     <Compile Include="Migrations\201810251326229_réorganisationGlobale.Designer.cs">
       <DependentUpon>201810251326229_réorganisationGlobale.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810251330129_testAjoutRelationClientReservation.cs" />
+    <Compile Include="Migrations\201810251330129_testAjoutRelationClientReservation.Designer.cs">
+      <DependentUpon>201810251330129_testAjoutRelationClientReservation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\ChambresSet.cs" />
     <Compile Include="ClassMain.cs" />
     <Compile Include="Models\ReservationSet.cs" />
@@ -133,6 +137,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810251326229_réorganisationGlobale.resx">
       <DependentUpon>201810251326229_réorganisationGlobale.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810251330129_testAjoutRelationClientReservation.resx">
+      <DependentUpon>201810251330129_testAjoutRelationClientReservation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
