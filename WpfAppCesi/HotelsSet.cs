@@ -21,5 +21,7 @@ namespace WpfAppCesi
         public virtual ChambresSet ChambresSet { get; set; }
 
         public string Localisation { get; set; }
+
+        public string Pays { get; set; }
     }
 }

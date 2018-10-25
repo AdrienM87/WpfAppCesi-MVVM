@@ -71,6 +71,10 @@
     <Compile Include="Migrations\201810251213211_ajoutLocalisation.Designer.cs">
       <DependentUpon>201810251213211_ajoutLocalisation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810251226149_ajoutPays.cs" />
+    <Compile Include="Migrations\201810251226149_ajoutPays.Designer.cs">
+      <DependentUpon>201810251226149_ajoutPays.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="UsersSet.cs" />
     <Page Include="MainWindow.xaml">
@@ -103,6 +107,9 @@
     </Compile>
     <EmbeddedResource Include="Migrations\201810251213211_ajoutLocalisation.resx">
       <DependentUpon>201810251213211_ajoutLocalisation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810251226149_ajoutPays.resx">
+      <DependentUpon>201810251226149_ajoutPays.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
