@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DB_A3B67D_cesiModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ChambresSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nom" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Climatisation" Type="bit" Nullable="false" />
+          <Property Name="NbLits" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HotelsSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nom" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Capacite" Type="int" Nullable="false" />
+          <Property Name="ChambresSetId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UsersSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Firstname" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Lastname" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ChambresSetHotelsSet">
+          <End Role="ChambresSet" Type="Self.ChambresSet" Multiplicity="1" />
+          <End Role="HotelsSet" Type="Self.HotelsSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ChambresSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HotelsSet">
+              <PropertyRef Name="ChambresSetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DB_A3B67D_cesiModelStoreContainer">
+          <EntitySet Name="ChambresSet" EntityType="Self.ChambresSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HotelsSet" EntityType="Self.HotelsSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsersSet" EntityType="Self.UsersSet" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ChambresSetHotelsSet" Association="Self.FK_ChambresSetHotelsSet">
+            <End Role="ChambresSet" EntitySet="ChambresSet" />
+            <End Role="HotelsSet" EntitySet="HotelsSet" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DB_A3B67D_cesiModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ChambresSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nom" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Climatisation" Type="Boolean" Nullable="false" />
+          <Property Name="NbLits" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="HotelsSet" Relationship="Self.FK_ChambresSetHotelsSet" FromRole="ChambresSet" ToRole="HotelsSet" />
+        </EntityType>
+        <EntityType Name="HotelsSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nom" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Capacite" Type="Int32" Nullable="false" />
+          <Property Name="ChambresSetId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ChambresSet" Relationship="Self.FK_ChambresSetHotelsSet" FromRole="HotelsSet" ToRole="ChambresSet" />
+        </EntityType>
+        <EntityType Name="UsersSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Firstname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Lastname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ChambresSetHotelsSet">
+          <End Role="ChambresSet" Type="Self.ChambresSet" Multiplicity="1" />
+          <End Role="HotelsSet" Type="Self.HotelsSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ChambresSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HotelsSet">
+              <PropertyRef Name="ChambresSetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BookingEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ChambresSet" EntityType="Self.ChambresSet" />
+          <EntitySet Name="HotelsSet" EntityType="Self.HotelsSet" />
+          <EntitySet Name="UsersSet" EntityType="Self.UsersSet" />
+          <AssociationSet Name="FK_ChambresSetHotelsSet" Association="Self.FK_ChambresSetHotelsSet">
+            <End Role="ChambresSet" EntitySet="ChambresSet" />
+            <End Role="HotelsSet" EntitySet="HotelsSet" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DB_A3B67D_cesiModelStoreContainer" CdmEntityContainer="BookingEntities">
+          <EntitySetMapping Name="ChambresSet">
+            <EntityTypeMapping TypeName="DB_A3B67D_cesiModel.ChambresSet">
+              <MappingFragment StoreEntitySet="ChambresSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nom" ColumnName="Nom" />
+                <ScalarProperty Name="Climatisation" ColumnName="Climatisation" />
+                <ScalarProperty Name="NbLits" ColumnName="NbLits" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HotelsSet">
+            <EntityTypeMapping TypeName="DB_A3B67D_cesiModel.HotelsSet">
+              <MappingFragment StoreEntitySet="HotelsSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nom" ColumnName="Nom" />
+                <ScalarProperty Name="Capacite" ColumnName="Capacite" />
+                <ScalarProperty Name="ChambresSetId" ColumnName="ChambresSetId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsersSet">
+            <EntityTypeMapping TypeName="DB_A3B67D_cesiModel.UsersSet">
+              <MappingFragment StoreEntitySet="UsersSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Firstname" ColumnName="Firstname" />
+                <ScalarProperty Name="Lastname" ColumnName="Lastname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
