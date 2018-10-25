@@ -12,8 +12,9 @@
                 <Grid Background="#FFE5E5E5">
                     <DataGrid HorizontalAlignment="Left" Height="304" Margin="10,10,0,0" VerticalAlignment="Top" Width="746"/>
                     <Button x:Name="btAjouterChambre" Content="Ajouter chambre" HorizontalAlignment="Left" Margin="10,334,0,0" VerticalAlignment="Top" Width="110" Height="27" Click="btAjouterChambre_Click"/>
-                    <Button x:Name="btModifierChambre" Content="Modifier chambre" HorizontalAlignment="Left" Margin="134,334,0,0" VerticalAlignment="Top" Width="110" Height="27"/>
-                    <Button x:Name="btSupprimerChambre" Content="Supprimer chambre" HorizontalAlignment="Left" Margin="262,334,0,0" VerticalAlignment="Top" Width="121" Height="27"/>
+                    <Button x:Name="btModifierChambre" Content="Modifier chambre" HorizontalAlignment="Left" Margin="134,334,0,0" VerticalAlignment="Top" Width="110" Height="27" Click="btModifierChambre_Click"/>
+                    <Button x:Name="btSupprimerChambre" Content="Supprimer chambre" HorizontalAlignment="Left" Margin="262,334,0,0" VerticalAlignment="Top" Width="121" Height="27" Click="btSupprimerChambre_Click"/>
+                    <Button x:Name="btReserverChambre" Content="Réserver" HorizontalAlignment="Left" Margin="635,334,0,0" VerticalAlignment="Top" Width="121" Height="27" Click="btReserverChambre_Click"/>
 
                 </Grid>
             </TabItem>

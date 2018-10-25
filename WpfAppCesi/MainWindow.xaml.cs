@@ -25,6 +25,7 @@ namespace WpfAppCesi
             InitializeComponent();
         }
 
+        #region gestion chambres
         private void btAjouterChambre_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -32,6 +33,46 @@ namespace WpfAppCesi
 
             }
             catch(Exception ex)
+            {
+                throw new Exception("Erreur : " + ex.ToString());
+            }
+        }
+
+        private void btModifierChambre_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erreur : " + ex.ToString());
+            }
+        }
+
+        private void btSupprimerChambre_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erreur : " + ex.ToString());
+            }
+        }
+
+
+
+        #endregion
+
+        private void btReserverChambre_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+
+            }
+            catch (Exception ex)
             {
                 throw new Exception("Erreur : " + ex.ToString());
             }
