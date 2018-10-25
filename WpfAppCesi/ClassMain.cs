@@ -12,18 +12,13 @@ namespace WpfAppCesi
         {
             using (var db = new ModelBooking())
             {
-                var test = new HotelsSet()
-                {
-                    Nom = "Mercury",
-                    Capacite = 15,
-                    ChambresSet = new ChambresSet()
-                    {
-                        Nom = "bob",
-                        NbLits = 7
-                    }
-                };
+                //var test = new HotelsSet()
+                //{
+                //    Nom = "Mercury",
+                //    Capacite = 15,
 
-                db.HotelsSet.Add(test);
+                //};
+                //db.HotelsSet.Add(test);
                 db.SaveChanges();
             }
         }

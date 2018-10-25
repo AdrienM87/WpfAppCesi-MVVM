@@ -19,10 +19,7 @@ namespace WpfAppCesi
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ChambresSet>()
-                .HasMany(e => e.HotelsSet)
-                .WithRequired(e => e.ChambresSet)
-                .WillCascadeOnDelete(false);
+
         }
     }
 }

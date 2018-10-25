@@ -16,10 +16,6 @@ namespace WpfAppCesi
 
         public int Capacite { get; set; }
 
-        public int ChambresSetId { get; set; }
-
-        public virtual ChambresSet ChambresSet { get; set; }
-
         public string Localisation { get; set; }
 
         public string Pays { get; set; }
