@@ -23,16 +23,56 @@ namespace WpfAppCesi
         public MainWindow()
         {
             InitializeComponent();
+            LoadDatas();
         }
+
+        private void LoadDatas()
+        {
+            //LoadHotels();
+            LoadChambres();
+            //LoadClients();
+            //LoadReservations();
+        }
+
+        #region load des datas
+        private void LoadChambres()
+        {
+            try
+            {
+                using (var datas = new ModelBooking())
+                {
+                    HashSet<ChambresSet> SetChambres = (from chambres in datas.ChambresSet select chambres).ToHashSet();
+                    ChambresDataGrid.ItemsSource = SetChambres;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erreur : " + ex.ToString());
+            }
+        }
+        #endregion
 
         #region gestion chambres
         private void btAjouterChambre_Click(object sender, RoutedEventArgs e)
         {
             try
             {
+                using (var datas = new ModelBooking())
+                {
+                    using (var db = new ModelBooking())
+                    {
+                        ChambresSet chambre = new ChambresSet();
+                        chambre.Nom = this.TbNomChambre.Text;
+                        chambre.Climatisation = (bool)this.RdHasClimO.IsChecked;
+                        chambre.NbLits = Convert.ToInt32(this.TbNbLits.Text);
+                        chambre.HotelsSetId = Convert.ToInt32(this.CbHotels.SelectedValue);
 
+                        db.ChambresSet.Add(chambre);
+                        db.SaveChanges();
+                    }
+                }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception("Erreur : " + ex.ToString());
             }
