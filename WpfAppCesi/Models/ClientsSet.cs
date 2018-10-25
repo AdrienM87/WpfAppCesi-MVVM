@@ -6,15 +6,18 @@ namespace WpfAppCesi
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("UsersSet")]
-    public partial class UsersSet
+    [Table("ClientsSet")]
+    public partial class ClientsSet
     {
         public int Id { get; set; }
 
         [Required]
-        public string Firstname { get; set; }
+        public string Prenom { get; set; }
 
         [Required]
-        public string Lastname { get; set; }
+        public string Nom { get; set; }
+
+        [Required]
+        public DateTime DateNaissance { get; set; }
     }
 }

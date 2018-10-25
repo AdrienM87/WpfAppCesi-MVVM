@@ -68,6 +68,10 @@
     <Compile Include="Migrations\201810251248054_ajoutTableReservation.Designer.cs">
       <DependentUpon>201810251248054_ajoutTableReservation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810251253383_modificationUsersToClients.cs" />
+    <Compile Include="Migrations\201810251253383_modificationUsersToClients.Designer.cs">
+      <DependentUpon>201810251253383_modificationUsersToClients.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\ChambresSet.cs" />
     <Compile Include="ClassMain.cs" />
     <Compile Include="Models\ReservationSet.cs" />
@@ -82,7 +86,7 @@
       <DependentUpon>201810251226149_ajoutPays.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\UsersSet.cs" />
+    <Compile Include="Models\ClientsSet.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -119,6 +123,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810251248054_ajoutTableReservation.resx">
       <DependentUpon>201810251248054_ajoutTableReservation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810251253383_modificationUsersToClients.resx">
+      <DependentUpon>201810251253383_modificationUsersToClients.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -14,7 +14,7 @@ namespace WpfAppCesi
 
         public virtual DbSet<ChambresSet> ChambresSet { get; set; }
         public virtual DbSet<HotelsSet> HotelsSet { get; set; }
-        public virtual DbSet<UsersSet> UsersSet { get; set; }
+        public virtual DbSet<ClientsSet> ClientsSet { get; set; }
         public virtual DbSet<ReservationSet> ReservationsSet { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
