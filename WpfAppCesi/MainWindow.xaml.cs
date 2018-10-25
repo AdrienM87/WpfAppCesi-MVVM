@@ -57,18 +57,20 @@ namespace WpfAppCesi
         {
             try
             {
+                this.BtValiderChambre.IsEnabled = true;
+                this.TbNomChambre.IsEnabled = true;
+                this.TbNbLits.IsEnabled = true;
+                this.RdHasClimO.IsEnabled = true;
+                this.RdHasClimN.IsEnabled = true;
+                this.CbHotels.IsEnabled = true;
+
                 using (var datas = new ModelBooking())
                 {
-                    using (var db = new ModelBooking())
+                    HashSet<HotelsSet> SetComboHotels = (from hotels in datas.HotelsSet select hotels).ToHashSet();
+                    
+                    foreach(HotelsSet hotel in SetComboHotels)
                     {
-                        ChambresSet chambre = new ChambresSet();
-                        chambre.Nom = this.TbNomChambre.Text;
-                        chambre.Climatisation = (bool)this.RdHasClimO.IsChecked;
-                        chambre.NbLits = Convert.ToInt32(this.TbNbLits.Text);
-                        chambre.HotelsSetId = Convert.ToInt32(this.CbHotels.SelectedValue);
-
-                        db.ChambresSet.Add(chambre);
-                        db.SaveChanges();
+                        this.CbHotels.Items.Add(hotel.Id + " " + hotel.Nom);
                     }
                 }
             }
@@ -102,7 +104,27 @@ namespace WpfAppCesi
             }
         }
 
+        private void BtValiderChambre_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                using (var db = new ModelBooking())
+                {
+                    ChambresSet chambre = new ChambresSet();
+                    chambre.Nom = this.TbNomChambre.Text;
+                    chambre.Climatisation = (bool)this.RdHasClimO.IsChecked;
+                    chambre.NbLits = Convert.ToInt32(this.TbNbLits.Text);
+                    chambre.HotelsSetId = Convert.ToInt32(this.CbHotels.SelectedValue);
 
+                    db.ChambresSet.Add(chambre);
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erreur : " + ex.ToString());
+            }
+        }
 
         #endregion
 
