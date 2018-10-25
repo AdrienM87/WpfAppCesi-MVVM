@@ -5,14 +5,14 @@ namespace WpfAppCesi.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<WpfAppCesi.BookingEntities>
+    internal sealed class Configuration : DbMigrationsConfiguration<WpfAppCesi.ModelBooking>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(WpfAppCesi.BookingEntities context)
+        protected override void Seed(WpfAppCesi.ModelBooking context)
         {
             //  This method will be called after migrating to the latest version.
 

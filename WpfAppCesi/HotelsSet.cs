@@ -19,5 +19,7 @@ namespace WpfAppCesi
         public int ChambresSetId { get; set; }
 
         public virtual ChambresSet ChambresSet { get; set; }
+
+        public string Localisation { get; set; }
     }
 }

@@ -67,6 +67,10 @@
     <Compile Include="ChambresSet.cs" />
     <Compile Include="ClassMain.cs" />
     <Compile Include="HotelsSet.cs" />
+    <Compile Include="Migrations\201810251213211_ajoutLocalisation.cs" />
+    <Compile Include="Migrations\201810251213211_ajoutLocalisation.Designer.cs">
+      <DependentUpon>201810251213211_ajoutLocalisation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="UsersSet.cs" />
     <Page Include="MainWindow.xaml">
@@ -97,6 +101,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Migrations\201810251213211_ajoutLocalisation.resx">
+      <DependentUpon>201810251213211_ajoutLocalisation.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

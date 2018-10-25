@@ -10,7 +10,7 @@ namespace WpfAppCesi
     {
         public ClassMain()
         {
-            using (var db = new BookingEntities())
+            using (var db = new ModelBooking())
             {
                 var test = new HotelsSet()
                 {
