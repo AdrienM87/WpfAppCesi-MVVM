@@ -10,8 +10,8 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <TabControl HorizontalAlignment="Left" Height="584" Margin="10,10,0,0" VerticalAlignment="Top" Width="772">
-            <TabItem Header="Hotel" HorizontalAlignment="Left" Width="45">
+        <TabControl x:Name="TabGestion" HorizontalAlignment="Left" Height="584" Margin="10,10,0,0" VerticalAlignment="Top" Width="772">
+            <TabItem x:Name="TabHotel" Header="Hotel" HorizontalAlignment="Left" Width="45">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="12*"/>

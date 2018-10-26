@@ -29,6 +29,14 @@ namespace WpfAppCesi
     /// </summary>
     public partial class MainWindow : Window
     {
+        public enum EnumGestionInterfaces
+        {
+            Hotel = 0,
+            Chambre = 1,
+            Client = 2,
+            Reservation = 3
+        }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -347,7 +355,7 @@ namespace WpfAppCesi
         {
             try
             {
-                //TODO : changement d'onglet
+                this.TabGestion.SelectedIndex = (int)EnumGestionInterfaces.Reservation;
             }
             catch (Exception ex)
             {
@@ -961,7 +969,7 @@ namespace WpfAppCesi
                     db.SaveChanges();
                 }
                 MessageBox.Show("Enregistré !");
-                
+
                 LoadClients();
                 ActiverDesactiverControlesClients(false);
             }
@@ -973,10 +981,15 @@ namespace WpfAppCesi
 
         private void BtReserverChambre_TabClient_Click(object sender, RoutedEventArgs e)
         {
-
+            try
+            {
+                this.TabGestion.SelectedIndex = (int)EnumGestionInterfaces.Reservation;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
-
-        //TODO : coder boutons reserver chambres
 
         private void ClientsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
