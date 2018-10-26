@@ -13,6 +13,15 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+//TODO : appliquer MVVM
+/*
+    InotifiedPropertyChanged
+
+    CRUD -> viewModel
+
+    ICommand pour envoyer de la view au vm
+ */
+
 namespace WpfAppCesi
 {
     /// <summary>
@@ -33,7 +42,7 @@ namespace WpfAppCesi
             //LoadHotels();
             LoadChambres();
             //LoadClients();
-            //LoadReservations();
+            LoadReservations();
         }
 
         private void LoadChambres()
@@ -42,8 +51,35 @@ namespace WpfAppCesi
             {
                 using (var db = new ModelBooking())
                 {
-                    HashSet<ChambresSet> SetChambres = (from chambres in db.ChambresSet select chambres).ToHashSet();
-                    this.ChambresDataGrid.ItemsSource = SetChambres;
+                    var resultQuery = (from chambres in db.ChambresSet select chambres);
+
+                    if (resultQuery.Any())
+                    {
+                        HashSet<ChambresSet> SetChambres = resultQuery.ToHashSet();
+                        this.ChambresDataGrid.ItemsSource = SetChambres;
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erreur : " + ex.ToString());
+            }
+        }
+
+        private void LoadReservations()
+        {
+            try
+            {
+                using (var db = new ModelBooking())
+                {
+                    var resultQuery = (from reservations in db.ReservationsSet select reservations);
+
+                    if (resultQuery.Any())
+                    {
+                        HashSet<ReservationSet> SetReservations = resultQuery.ToHashSet();
+                        this.ReservationDataGrid.ItemsSource = SetReservations;
+                    }
                 }
             }
             catch (Exception ex)
@@ -53,9 +89,40 @@ namespace WpfAppCesi
         }
         #endregion
 
+        #region Commun
+
+        private void ChargementComboHotel(ComboBox combo)
+        {
+            try
+            {
+                combo.Items.Clear();
+
+                using (var db = new ModelBooking())
+                {
+                    var resultQuery = (from hotels in db.HotelsSet select hotels);
+
+                    if (resultQuery.Any())
+                    {
+                        HashSet<HotelsSet> SetComboHotels = resultQuery.ToHashSet();
+
+                        foreach (HotelsSet hotel in SetComboHotels)
+                        {
+                            combo.Items.Add(hotel.Id);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erreur : " + ex.ToString());
+            }
+        }
+
+        #endregion
+
         #region Gestion des chambres
 
-        private void ViderComposants()
+        private void ViderComposantsChambres()
         {
             try
             {
@@ -72,51 +139,26 @@ namespace WpfAppCesi
             }
         }
 
-        private void ActiverDesactiverControles(bool choix)
+        private void ActiverDesactiverControlesChambres(bool choix)
         {
             try
             {
                 if (!choix)
                 {
-                    ViderComposants();
+                    ViderComposantsChambres();
                 }
                 this.BtValiderChambre.IsEnabled = choix;
                 this.TbNomChambre.IsEnabled = choix;
                 this.TbNbLits.IsEnabled = choix;
                 this.RdHasClimO.IsEnabled = choix;
                 this.RdHasClimN.IsEnabled = choix;
-                this.CbHotels.IsEnabled = choix;
+                this.CbHotels_TabChambres.IsEnabled = choix;
             }
             catch (Exception ex)
             {
                 throw new Exception("Erreur : " + ex.ToString());
             }
-        }
-
-        private void ChargementComboHotel()
-        {
-            try
-            {
-                using (var db = new ModelBooking())
-                {
-                    var resultQuery = (from hotels in db.HotelsSet select hotels);
-
-                    if (resultQuery.Any())
-                    {
-                        HashSet<HotelsSet> SetComboHotels = resultQuery.ToHashSet();
-
-                        foreach (HotelsSet hotel in SetComboHotels)
-                        {
-                            this.CbHotels.Items.Add(hotel.Id);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Erreur : " + ex.ToString());
-            }
-        }
+        }        
 
         private void BtAjouterChambre_Click(object sender, RoutedEventArgs e)
         {
@@ -124,10 +166,10 @@ namespace WpfAppCesi
             {
                 this.BtAjouterChambre.IsEnabled = false;
 
-                ViderComposants();
-                ActiverDesactiverControles(true);
+                ViderComposantsChambres();
+                ActiverDesactiverControlesChambres(true);
 
-                ChargementComboHotel();
+                ChargementComboHotel(this.CbHotels_TabChambres);
             }
             catch (Exception ex)
             {
@@ -139,6 +181,8 @@ namespace WpfAppCesi
         {
             try
             {
+                this.BtSupprimerChambre.IsEnabled = false;
+
                 int idChambre;
                 if (this.ChambresDataGrid.SelectedItem == null)
                 {
@@ -172,13 +216,14 @@ namespace WpfAppCesi
 
         private void BtValiderChambre_Click(object sender, RoutedEventArgs e)
         {
-            if (CbHotels.SelectedValue == null)
-            {
-                MessageBox.Show("Veuillez choisir un hotel");
-                return;
-            }
             try
             {
+                if (CbHotels_TabChambres.SelectedValue == null)
+                {
+                    MessageBox.Show("Veuillez choisir un hotel");
+                    return;
+                }
+
                 using (var db = new ModelBooking())
                 {
                     bool isNewChambre;
@@ -210,7 +255,7 @@ namespace WpfAppCesi
                     chambre.Nom = this.TbNomChambre.Text;
                     chambre.Climatisation = (bool)this.RdHasClimO.IsChecked;
                     chambre.NbLits = Convert.ToInt32(this.TbNbLits.Text);
-                    chambre.keyHotel = Convert.ToInt32(this.CbHotels.SelectedValue);
+                    chambre.keyHotel = Convert.ToInt32(this.CbHotels_TabChambres.SelectedValue);
 
                     if (isNewChambre)
                     {
@@ -221,7 +266,7 @@ namespace WpfAppCesi
                 MessageBox.Show("Enregistré !");
 
                 LoadChambres();
-                ActiverDesactiverControles(false);
+                ActiverDesactiverControlesChambres(false);
             }
             catch (Exception ex)
             {
@@ -236,7 +281,7 @@ namespace WpfAppCesi
                 using (var db = new ModelBooking())
                 {
                     var resultQuery = (from hotels in db.HotelsSet
-                                       where hotels.Id == (int)this.CbHotels.SelectedValue
+                                       where hotels.Id == (int)this.CbHotels_TabChambres.SelectedValue
                                        select hotels.Nom);
 
                     if (resultQuery.Any())
@@ -265,17 +310,18 @@ namespace WpfAppCesi
                     return;
                 }
 
-                ChargementComboHotel();
+                ChargementComboHotel(this.CbHotels_TabChambres);
 
                 this.BtAjouterChambre.IsEnabled = true;
+                this.BtSupprimerChambre.IsEnabled = true;
 
                 this.LbIdChambre.Content = chambre.Id.ToString();
                 this.TbNomChambre.Text = chambre.Nom;
                 this.TbNbLits.Text = chambre.NbLits.ToString();
                 this.RdHasClimO.IsChecked = chambre.Climatisation;
-                this.CbHotels.SelectedItem = chambre.keyHotel;
+                this.CbHotels_TabChambres.SelectedItem = chambre.keyHotel;
 
-                ActiverDesactiverControles(true);
+                ActiverDesactiverControlesChambres(true);
             }
             catch (Exception ex)
             {
@@ -299,6 +345,59 @@ namespace WpfAppCesi
 
                 //    }
                 //}
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erreur : " + ex.ToString());
+            }
+        }
+
+        #endregion
+
+        #region Gestion des reservations
+
+        private void ViderComposantsReservations()
+        {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erreur : " + ex.ToString());
+            }
+        }
+
+        private void ActiverDesactiverControlesReservations(bool choix)
+        {
+            try
+            {
+                if (!choix)
+                {
+                    ViderComposantsChambres();
+                }
+                this.DtDebut.IsEnabled = choix;
+                this.DtFin.IsEnabled = choix;
+                this.CbClient.IsEnabled = choix;
+                this.CbHotels_TabHotels.IsEnabled = choix;
+                this.BtValiderReservation.IsEnabled = choix;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erreur : " + ex.ToString());
+            }
+        }
+
+        private void BtNouvelleReservation_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                this.BtNouvelleReservation.IsEnabled = false;
+
+                ViderComposantsReservations();
+                ActiverDesactiverControlesReservations(true);
+
+                ChargementComboHotel(this.CbHotels_TabHotels);
             }
             catch (Exception ex)
             {
@@ -334,6 +433,103 @@ namespace WpfAppCesi
             }
         }
 
+        private void BtSupprimerReservation_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                this.BtSupprimerReservation.IsEnabled = false;
 
+                int idReservation;
+                if (this.ReservationDataGrid.SelectedItem == null)
+                {
+                    return;
+                }
+                else
+                {
+                    idReservation = Convert.ToInt32(((ReservationSet)this.ReservationDataGrid.SelectedItem).Id);
+                }
+
+                using (var db = new ModelBooking())
+                {
+                    var resultQuery = (from reservations in db.ReservationsSet
+                                       where reservations.Id == idReservation
+                                       select reservations);
+
+                    if (resultQuery.Any())
+                    {
+                        db.ReservationsSet.Remove(resultQuery.First());
+                        db.SaveChanges();
+                    }
+                }
+                MessageBox.Show("Suppression effectuée !");
+                LoadReservations();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erreur : " + ex.ToString());
+            }
+        }
+
+        //TODO : pour les ajouts penser à l'objet en plus de la foreign key
+
+        private void BtValiderReservation_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (CbChambre.SelectedValue == null)
+                {
+                    MessageBox.Show("Veuillez choisir un hotel puis une chambre");
+                    return;
+                }
+
+                using (var db = new ModelBooking())
+                {
+                    bool isNewReservation;
+                    ReservationSet reservation;
+                    
+                    if ((string)this.LbIdReservation.Content != "" && this.LbIdReservation.Content != null)
+                    {
+                        isNewReservation = false;
+                        int idReservation = Convert.ToInt32(this.LbIdChambre.Content);
+
+                        var resultQuery = (from reservations in db.ReservationsSet
+                                           where reservations.Id == idReservation
+                                           select reservations);
+
+                        if (resultQuery.Any())
+                        {
+                            reservation = resultQuery.First();
+                        }
+                        else
+                        {
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        isNewReservation = true;
+                        reservation = new ReservationSet();
+                    }
+                    reservation.dateDebut = (DateTime)this.DtDebut.SelectedDate;
+                    reservation.dateFin = (DateTime)this.DtFin.SelectedDate;
+                    reservation.keyClient = Convert.ToInt32(this.CbClient.SelectedValue);
+                    reservation.keyChambre = Convert.ToInt32(this.CbHotels_TabChambres.SelectedValue);
+
+                    if (isNewReservation)
+                    {
+                        db.ChambresSet.Add(reservation);
+                    }
+                    db.SaveChanges();
+                }
+                MessageBox.Show("Enregistré !");
+
+                LoadChambres();
+                ActiverDesactiverControlesChambres(false);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
     }
 }
