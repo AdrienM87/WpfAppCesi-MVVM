@@ -39,9 +39,9 @@ namespace WpfAppCesi
         {
             try
             {
-                using (var datas = new ModelBooking())
+                using (var db = new ModelBooking())
                 {
-                    HashSet<ChambresSet> SetChambres = (from chambres in datas.ChambresSet select chambres).ToHashSet();
+                    HashSet<ChambresSet> SetChambres = (from chambres in db.ChambresSet select chambres).ToHashSet();
                     ChambresDataGrid.ItemsSource = SetChambres;
                 }
             }
@@ -53,7 +53,7 @@ namespace WpfAppCesi
         #endregion
 
         #region gestion chambres
-        private void btAjouterChambre_Click(object sender, RoutedEventArgs e)
+        private void BtAjouterChambre_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -64,13 +64,13 @@ namespace WpfAppCesi
                 this.RdHasClimN.IsEnabled = true;
                 this.CbHotels.IsEnabled = true;
 
-                using (var datas = new ModelBooking())
+                using (var db = new ModelBooking())
                 {
-                    HashSet<HotelsSet> SetComboHotels = (from hotels in datas.HotelsSet select hotels).ToHashSet();
+                    HashSet<HotelsSet> SetComboHotels = (from hotels in db.HotelsSet select hotels).ToHashSet();
                     
                     foreach(HotelsSet hotel in SetComboHotels)
                     {
-                        this.CbHotels.Items.Add(hotel.Id + " " + hotel.Nom);
+                        this.CbHotels.Items.Add(hotel.Id);
                     }
                 }
             }
@@ -80,7 +80,7 @@ namespace WpfAppCesi
             }
         }
 
-        private void btModifierChambre_Click(object sender, RoutedEventArgs e)
+        private void BtModifierChambre_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -92,7 +92,7 @@ namespace WpfAppCesi
             }
         }
 
-        private void btSupprimerChambre_Click(object sender, RoutedEventArgs e)
+        private void BtSupprimerChambre_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -114,11 +114,31 @@ namespace WpfAppCesi
                     chambre.Nom = this.TbNomChambre.Text;
                     chambre.Climatisation = (bool)this.RdHasClimO.IsChecked;
                     chambre.NbLits = Convert.ToInt32(this.TbNbLits.Text);
-                    chambre.keyHotel = Convert.ToInt32(this.CbHotels.SelectedItem);
+                    chambre.keyHotel = Convert.ToInt32(this.CbHotels.SelectedValue);
 
                     db.ChambresSet.Add(chambre);
                     db.SaveChanges();
                 }
+                MessageBox.Show("Chambre ajoutée !");
+                LoadChambres();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erreur : " + ex.ToString());
+            }
+        }
+
+        private void CbHotels_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                using (var db = new ModelBooking())
+                {
+                    this.LbNomHotel.Content = (from hotels in db.HotelsSet
+                                                where hotels.Id == (int)this.CbHotels.SelectedValue
+                                                select hotels.Nom).First();                    
+                }
+                
             }
             catch (Exception ex)
             {
@@ -128,7 +148,7 @@ namespace WpfAppCesi
 
         #endregion
 
-        private void btReserverChambre_Click(object sender, RoutedEventArgs e)
+        private void BtReserverChambre_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -139,5 +159,7 @@ namespace WpfAppCesi
                 throw new Exception("Erreur : " + ex.ToString());
             }
         }
+
+
     }
 }
