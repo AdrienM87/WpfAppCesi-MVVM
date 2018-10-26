@@ -688,6 +688,19 @@ namespace WpfAppCesi
             }
         }
 
+        private void BtAjouterHotel_Click(object sender, RoutedEventArgs e)
+        {
 
+        }
+
+        private void BtSupprimerHotel_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BtValiderHotel_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
