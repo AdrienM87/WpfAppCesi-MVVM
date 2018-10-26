@@ -26,6 +26,8 @@ namespace WpfAppCesi
             LoadDatas();
         }
 
+        #region Load des datas
+
         private void LoadDatas()
         {
             //LoadHotels();
@@ -34,7 +36,6 @@ namespace WpfAppCesi
             //LoadReservations();
         }
 
-        #region load des datas
         private void LoadChambres()
         {
             try
@@ -52,7 +53,7 @@ namespace WpfAppCesi
         }
         #endregion
 
-        #region gestion chambres
+        #region Gestion des chambres
 
         private void ViderComposants()
         {
@@ -98,11 +99,16 @@ namespace WpfAppCesi
             {
                 using (var db = new ModelBooking())
                 {
-                    HashSet<HotelsSet> SetComboHotels = (from hotels in db.HotelsSet select hotels).ToHashSet();
+                    var resultQuery = (from hotels in db.HotelsSet select hotels);
 
-                    foreach (HotelsSet hotel in SetComboHotels)
+                    if (resultQuery.Any())
                     {
-                        this.CbHotels.Items.Add(hotel.Id);
+                        HashSet<HotelsSet> SetComboHotels = resultQuery.ToHashSet();
+
+                        foreach (HotelsSet hotel in SetComboHotels)
+                        {
+                            this.CbHotels.Items.Add(hotel.Id);
+                        }
                     }
                 }
             }
@@ -229,9 +235,14 @@ namespace WpfAppCesi
             {
                 using (var db = new ModelBooking())
                 {
-                    this.LbNomHotel.Content = (from hotels in db.HotelsSet
-                                               where hotels.Id == (int)this.CbHotels.SelectedValue
-                                               select hotels.Nom).First();
+                    var resultQuery = (from hotels in db.HotelsSet
+                                       where hotels.Id == (int)this.CbHotels.SelectedValue
+                                       select hotels.Nom);
+
+                    if (resultQuery.Any())
+                    {
+                        this.LbNomHotel.Content = resultQuery.First();
+                    }
                 }
             }
             catch (Exception ex)
@@ -240,7 +251,6 @@ namespace WpfAppCesi
             }
         }
 
-        //TODO : interdire la sélection multiple
         private void ChambresDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             try
@@ -277,7 +287,18 @@ namespace WpfAppCesi
         {
             try
             {
+                //if ((string)this.LbIdChambre.Content != "" && this.LbIdChambre.Content != null)
+                //{
+                //    using (var db = new ModelBooking())
+                //    {
+                //        var resultQuery = (from hotels in db.HotelsSet
+                //                           where hotels.Id == (int)this.CbHotels.SelectedValue
+                //                           select hotels.);
 
+
+
+                //    }
+                //}
             }
             catch (Exception ex)
             {
@@ -312,5 +333,7 @@ namespace WpfAppCesi
                 throw new Exception("Erreur : " + ex.ToString());
             }
         }
+
+
     }
 }
