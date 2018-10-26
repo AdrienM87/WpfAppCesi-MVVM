@@ -151,8 +151,9 @@ namespace WpfAppCesi
                 this.TbNbLits.Text = "";
                 this.RdHasClimO.IsChecked = false;
                 this.RdHasClimN.IsChecked = false;
-                //this.CbHotels.SelectedItem = null;
+                this.CbHotels_TabChambres.SelectedIndex = -1;
                 this.LbNomHotel_TabChambres.Content = "";
+                this.ChambresDataGrid.SelectedIndex = -1;
             }
             catch (Exception ex)
             {
@@ -300,6 +301,11 @@ namespace WpfAppCesi
         {
             try
             {
+                if (CbHotels_TabChambres.SelectedValue == null)
+                {
+                    return;
+                }
+
                 using (var db = new ModelBooking())
                 {
                     var resultQuery = (from hotels in db.HotelsSet
@@ -371,7 +377,13 @@ namespace WpfAppCesi
         {
             try
             {
+                this.LbIdReservation.Content = "";
                 this.LbNomHotel_TabReservations.Content = "";
+                this.DtDebutReservation.SelectedDate = null;
+                this.DtFinReservation.SelectedDate = null;
+                this.CbClient.SelectedIndex = -1;
+                this.CbChambres.SelectedIndex = -1;
+                this.ReservationDataGrid.SelectedIndex = -1;
             }
             catch (Exception ex)
             {
@@ -387,8 +399,8 @@ namespace WpfAppCesi
                 {
                     ViderComposantsReservations();
                 }
-                this.DtDebut.IsEnabled = choix;
-                this.DtFin.IsEnabled = choix;
+                this.DtDebutReservation.IsEnabled = choix;
+                this.DtFinReservation.IsEnabled = choix;
                 this.CbClient.IsEnabled = choix;
                 this.CbHotels_TabReservations.IsEnabled = choix;
                 this.BtValiderReservation.IsEnabled = choix;
@@ -495,8 +507,8 @@ namespace WpfAppCesi
                         isNewReservation = true;
                         reservation = new ReservationSet();
                     }
-                    reservation.dateDebut = (DateTime)this.DtDebut.SelectedDate;
-                    reservation.dateFin = (DateTime)this.DtFin.SelectedDate;
+                    reservation.dateDebut = (DateTime)this.DtDebutReservation.SelectedDate;
+                    reservation.dateFin = (DateTime)this.DtFinReservation.SelectedDate;
                     reservation.keyClient = Convert.ToInt32(this.CbClient.SelectedValue);
                     reservation.keyChambre = Convert.ToInt32(this.CbChambres.SelectedValue);
 
@@ -521,6 +533,11 @@ namespace WpfAppCesi
         {
             try
             {
+                if (CbHotels_TabReservations.SelectedValue == null)
+                {
+                    return;
+                }
+
                 using (var db = new ModelBooking())
                 {
                     var resultQuery = (from hotels in db.HotelsSet
@@ -617,8 +634,8 @@ namespace WpfAppCesi
                 this.BtSupprimerReservation.IsEnabled = true;
 
                 this.LbIdReservation.Content = reservation.Id.ToString();
-                this.DtDebut.SelectedDate = reservation.dateDebut;
-                this.DtFin.SelectedDate = reservation.dateFin;
+                this.DtDebutReservation.SelectedDate = reservation.dateDebut;
+                this.DtFinReservation.SelectedDate = reservation.dateFin;
                 this.CbClient.SelectedItem = reservation.keyClient;
                 this.CbChambres.SelectedItem = reservation.keyChambre;
 
@@ -641,13 +658,11 @@ namespace WpfAppCesi
             }
         }
 
-        //TODO : vider les combos dans les fonctions dédiées
-
         private void BtNouveauClient_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                //TODO : changement d'onglet
+                this.TabGestion.SelectedIndex = (int)EnumGestionInterfaces.Client;
             }
             catch (Exception ex)
             {
@@ -668,6 +683,7 @@ namespace WpfAppCesi
                 this.TbCapacite.Text = "";
                 this.TbLocalisation.Text = "";
                 this.TbPays.Text = "";
+                this.HotelsDataGrid.SelectedIndex = -1;
             }
             catch (Exception ex)
             {
@@ -844,15 +860,14 @@ namespace WpfAppCesi
                 this.LbIdClient.Content = "";
                 this.TbNomClient.Text = "";
                 this.TbPrenomClient.Text = "";
-                //this.DtDateNaissance.SelectedDate;
+                this.DtDateNaissance.SelectedDate = null;
+                this.ClientsDataGrid.SelectedIndex = -1;
             }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
         }
-
-        //TODO : vider les date time picker également
 
         private void ActiverDesactiverControlesClients(bool choix)
         {

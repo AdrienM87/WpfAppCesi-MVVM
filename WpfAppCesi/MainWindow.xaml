@@ -97,9 +97,9 @@
                     </Grid.ColumnDefinitions>
                     <DataGrid x:Name="ReservationDataGrid" SelectionMode="Single" HorizontalAlignment="Left" Height="304" Margin="10,10,0,0" VerticalAlignment="Top" Width="579" Grid.ColumnSpan="3" SelectionChanged="ReservationDataGrid_SelectionChanged"/>
                     <Label x:Name="LbDateDebut" Content="Date de début :" Margin="5,433,632,98" Grid.Column="2"/>
-                    <DatePicker x:Name="DtDebut" IsEnabled="False" HorizontalAlignment="Left" Margin="5,458,0,0" VerticalAlignment="Top" Grid.Column="2"/>
+                    <DatePicker x:Name="DtDebutReservation" IsEnabled="False" HorizontalAlignment="Left" Margin="5,458,0,0" VerticalAlignment="Top" Grid.Column="2"/>
                     <Label x:Name="LbDateFin" Content="Date de fin :" Margin="5,490,652,41" Grid.Column="2"/>
-                    <DatePicker x:Name="DtFin" IsEnabled="False" HorizontalAlignment="Left" Margin="5,515,0,0" VerticalAlignment="Top" Grid.Column="2"/>
+                    <DatePicker x:Name="DtFinReservation" IsEnabled="False" HorizontalAlignment="Left" Margin="5,515,0,0" VerticalAlignment="Top" Grid.Column="2"/>
                     <Label x:Name="LbClient" Content="Client :" HorizontalAlignment="Left" Margin="197,432,0,0" VerticalAlignment="Top" Grid.Column="2"/>
                     <ComboBox x:Name="CbClient" IsEnabled="False" HorizontalAlignment="Left" Margin="197,458,0,0" VerticalAlignment="Top" Width="120" Grid.Column="2"/>
                     <Button x:Name="BtNouveauClient" Content="Nouveau client" HorizontalAlignment="Left" Margin="197,515,0,0" VerticalAlignment="Top" Width="120" Height="24" Grid.Column="2" Click="BtNouveauClient_Click"/>
