@@ -8,10 +8,9 @@
         Title="MainWindow" Height="691.193" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="23*"/>
-            <ColumnDefinition Width="49*"/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <TabControl HorizontalAlignment="Left" Height="584" Margin="10,10,0,0" VerticalAlignment="Top" Width="772" Grid.ColumnSpan="2">
+        <TabControl HorizontalAlignment="Left" Height="584" Margin="10,10,0,0" VerticalAlignment="Top" Width="772">
             <TabItem Header="Chambre">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
@@ -42,7 +41,23 @@
             </TabItem>
             <TabItem Header="Hotel" HorizontalAlignment="Left" Width="45">
                 <Grid Background="#FFE5E5E5">
-                    <DataGrid x:Name="HotelsDataGrid" SelectionMode="Single" HorizontalAlignment="Left" Height="304" Margin="10,10,0,0" VerticalAlignment="Top" Width="579" SelectionChanged="ChambresDataGrid_SelectionChanged"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="37*"/>
+                        <ColumnDefinition Width="729*"/>
+                    </Grid.ColumnDefinitions>
+                    <DataGrid x:Name="HotelsDataGrid" SelectionMode="Single" HorizontalAlignment="Left" Height="304" Margin="10,10,0,0" VerticalAlignment="Top" Width="579" SelectionChanged="ChambresDataGrid_SelectionChanged" Grid.ColumnSpan="2"/>
+                    <Button x:Name="BtAjouterHotel" Content="Ajouter hotel" HorizontalAlignment="Left" Margin="10,319,0,0" VerticalAlignment="Top" Width="98" Height="32" Grid.ColumnSpan="2"/>
+                    <Button x:Name="BtSupprimerHotel" IsEnabled="False" Content="Supprimer hotel" HorizontalAlignment="Left" Margin="86.457,319,0,0" VerticalAlignment="Top" Width="109" Height="32" Grid.Column="1"/>
+                    <Label x:Name="LbN_TabHotels" Content="N°" HorizontalAlignment="Left" Margin="567.457,10,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+                    <Label x:Name="LbIdHotel" Content="" HorizontalAlignment="Left" Margin="610.457,10,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+                    <TextBox x:Name="TbNomHotel" IsEnabled="False" HorizontalAlignment="Left" Height="23" Margin="567.457,77,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.481,1.49" Grid.Column="1"/>
+                    <Label x:Name="LbNomHotel" Content="Nom de l'hotel :" HorizontalAlignment="Left" Margin="567.457,51,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+                    <TextBox x:Name="TbCapacite" IsEnabled="False" HorizontalAlignment="Left" Height="23" Margin="575.457,146,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="77" RenderTransformOrigin="0.481,1.49" Grid.Column="1"/>
+                    <Label x:Name="LbCapacite" Content="Capacité :" HorizontalAlignment="Left" Margin="567.457,120,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+                    <TextBox x:Name="TbLocalisation" IsEnabled="False" HorizontalAlignment="Left" Height="23" Margin="575,219,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="77" RenderTransformOrigin="0.481,1.49" Grid.Column="1"/>
+                    <Label x:Name="LbLocalisation" Content="Localisation :" HorizontalAlignment="Left" Margin="567,193,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+                    <TextBox x:Name="TbPays" IsEnabled="False" HorizontalAlignment="Left" Height="23" Margin="575,290,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="77" RenderTransformOrigin="0.481,1.49" Grid.Column="1"/>
+                    <Label x:Name="LbPays" Content="Pays :" HorizontalAlignment="Left" Margin="567,264,0,0" VerticalAlignment="Top" Grid.Column="1"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Réservations" HorizontalAlignment="Left" Width="82" Margin="-2,-2,-35,0">
@@ -73,7 +88,7 @@
                 </Grid>
             </TabItem>
         </TabControl>
-        <Button x:Name="BtRecharger" Content="Recharger la page" HorizontalAlignment="Left" Margin="306,623,0,0" VerticalAlignment="Top" Width="138" Grid.Column="1" Click="BtRecharger_Click" Height="27"/>
-        <Button x:Name="BtQuitter" Content="Quitter" HorizontalAlignment="Left" Margin="449,623,0,0" VerticalAlignment="Top" Width="80" Grid.Column="1" Click="BtQuitter_Click" Height="27"/>
+        <Button x:Name="BtRecharger" Content="Recharger la page" HorizontalAlignment="Left" Margin="559,623,0,0" VerticalAlignment="Top" Width="138" Click="BtRecharger_Click" Height="27"/>
+        <Button x:Name="BtQuitter" Content="Quitter" HorizontalAlignment="Left" Margin="702,623,0,0" VerticalAlignment="Top" Width="80" Click="BtQuitter_Click" Height="27"/>
     </Grid>
 </Window>
