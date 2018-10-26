@@ -48,7 +48,7 @@
                     <DataGrid x:Name="ChambresDataGrid" SelectionMode="Single" HorizontalAlignment="Left" Height="304" Margin="10,10,0,0" VerticalAlignment="Top" Width="579" Grid.ColumnSpan="5" SelectionChanged="ChambresDataGrid_SelectionChanged"/>
                     <Button x:Name="BtAjouterChambre" Content="Ajouter chambre" HorizontalAlignment="Left" Margin="0,320,0,0" VerticalAlignment="Top" Width="103" Height="27" Click="BtAjouterChambre_Click" Grid.ColumnSpan="3" Grid.Column="1"/>
                     <Button x:Name="BtSupprimerChambre" IsEnabled="False" Content="Supprimer chambre" HorizontalAlignment="Left" Margin="39,319,0,0" VerticalAlignment="Top" Width="113" Height="27" Click="BtSupprimerChambre_Click" Grid.Column="3" Grid.ColumnSpan="2"/>
-                    <Button x:Name="BtReserverChambre" Content="Réserver" HorizontalAlignment="Left" Margin="0,377,0,0" VerticalAlignment="Top" Width="103" Height="27" Click="BtReserverChambre_Click" Grid.Column="1" Grid.ColumnSpan="3"/>
+                    <Button x:Name="BtReserverChambre_TabChambre" Content="Réserver" HorizontalAlignment="Left" Margin="0,377,0,0" VerticalAlignment="Top" Width="103" Height="27" Click="BtReserverChambre_Click" Grid.Column="1" Grid.ColumnSpan="3"/>
                     <TextBox x:Name="TbNomChambre" IsEnabled="False" Grid.Column="4" HorizontalAlignment="Left" Height="23" Margin="458,76,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.481,1.49"/>
                     <Label x:Name="LbNomChambre" Content="Nom de la chambre :" Grid.Column="4" HorizontalAlignment="Left" Margin="458,50,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="TbNbLits" IsEnabled="False" Grid.Column="4" HorizontalAlignment="Left" Height="23" Margin="466,209,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="77" RenderTransformOrigin="0.481,1.49"/>
@@ -64,7 +64,30 @@
                     <Label x:Name="LbIdChambre" Content="" Grid.Column="4" HorizontalAlignment="Left" Margin="487,10,0,0" VerticalAlignment="Top"/>
                 </Grid>
             </TabItem>
-            
+            <TabItem Header="Client">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="11*"/>
+                        <ColumnDefinition Width="63*"/>
+                        <ColumnDefinition Width="6*"/>
+                        <ColumnDefinition Width="77*"/>
+                        <ColumnDefinition Width="609*"/>
+                    </Grid.ColumnDefinitions>
+                    <DataGrid x:Name="ClientsDataGrid" SelectionMode="Single" HorizontalAlignment="Left" Height="304" Margin="10,10,0,0" VerticalAlignment="Top" Width="579" Grid.ColumnSpan="5" SelectionChanged="ClientsDataGrid_SelectionChanged"/>
+                    <Button x:Name="BtAjouterClient" Content="Ajouter client" HorizontalAlignment="Left" Margin="0,320,0,0" VerticalAlignment="Top" Width="103" Height="27" Grid.ColumnSpan="3" Grid.Column="1" Click="BtAjouterClient_Click"/>
+                    <Button x:Name="BtSupprimerClient" IsEnabled="False" Content="Supprimer client" HorizontalAlignment="Left" Margin="39,319,0,0" VerticalAlignment="Top" Width="113" Height="27"  Grid.Column="3" Grid.ColumnSpan="2" Click="BtSupprimerClient_Click"/>
+                    <Button x:Name="BtReserverChambre_TabClient" Content="Réserver" HorizontalAlignment="Left" Margin="414,449,0,0" VerticalAlignment="Top" Width="103" Height="27" Grid.Column="4" Click="BtReserverChambre_TabClient_Click"/>
+                    <TextBox x:Name="TbNomClient" IsEnabled="False" Grid.Column="4" HorizontalAlignment="Left" Height="23" Margin="458,76,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.481,1.49"/>
+                    <Label x:Name="LbNomClient" Content="Nom :" Grid.Column="4" HorizontalAlignment="Left" Margin="458,50,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="TbPrenomClient" IsEnabled="False" Grid.Column="4" HorizontalAlignment="Left" Height="23" Margin="460,145,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="77" RenderTransformOrigin="0.481,1.49"/>
+                    <Label x:Name="LbPrenomClient" Content="Prénom :" Grid.Column="4" HorizontalAlignment="Left" Margin="460,119,0,0" VerticalAlignment="Top"/>
+                    <DatePicker x:Name="DtDateNaissance" IsEnabled="False" HorizontalAlignment="Left" Margin="460,226,0,0" VerticalAlignment="Top" Grid.Column="4" Width="131"/>
+                    <Button x:Name="BtValiderClient" IsEnabled="False" Content="Valider" Grid.Column="4" HorizontalAlignment="Left" Margin="487,294,0,0" VerticalAlignment="Top" Width="57" Click="BtValiderClient_Click"/>
+                    <Label x:Name="LbN_TabClient" Content="N°" Grid.Column="4" HorizontalAlignment="Left" Margin="458,10,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="LbIdClient" Content="" Grid.Column="4" HorizontalAlignment="Left" Margin="487,10,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="LbDateNaissance"  Content="Date naissance :" Grid.Column="4" HorizontalAlignment="Left" Margin="460,200,0,0" VerticalAlignment="Top"/>
+                </Grid>
+            </TabItem>
             <TabItem Header="Réservations" HorizontalAlignment="Left" Width="82" Margin="-2,-2,-35,0">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>

@@ -41,7 +41,7 @@ namespace WpfAppCesi
         {
             LoadHotels();
             LoadChambres();
-            //LoadClients();
+            LoadClients();
             LoadReservations();
         }
 
@@ -63,7 +63,7 @@ namespace WpfAppCesi
             }
             catch (Exception ex)
             {
-                throw new Exception("Erreur : " + ex.ToString());
+                throw new Exception(ex.Message);
             }
         }
 
@@ -84,7 +84,7 @@ namespace WpfAppCesi
             }
             catch (Exception ex)
             {
-                throw new Exception("Erreur : " + ex.ToString());
+                throw new Exception(ex.Message);
             }
         }
 
@@ -105,7 +105,28 @@ namespace WpfAppCesi
             }
             catch (Exception ex)
             {
-                throw new Exception("Erreur : " + ex.ToString());
+                throw new Exception(ex.Message);
+            }
+        }
+
+        private void LoadClients()
+        {
+            try
+            {
+                using (var db = new ModelBooking())
+                {
+                    var resultQuery = (from clients in db.ClientsSet select clients);
+
+                    if (resultQuery.Any())
+                    {
+                        HashSet<ClientsSet> SetClients = resultQuery.ToHashSet();
+                        this.ClientsDataGrid.ItemsSource = SetClients;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
             }
         }
 
@@ -127,7 +148,7 @@ namespace WpfAppCesi
             }
             catch (Exception ex)
             {
-                throw new Exception("Erreur : " + ex.ToString());
+                throw new Exception(ex.Message);
             }
         }
 
@@ -148,7 +169,7 @@ namespace WpfAppCesi
             }
             catch (Exception ex)
             {
-                throw new Exception("Erreur : " + ex.ToString());
+                throw new Exception(ex.Message);
             }
         }
 
@@ -166,7 +187,7 @@ namespace WpfAppCesi
             }
             catch (Exception ex)
             {
-                throw new Exception("Erreur : " + ex.ToString());
+                throw new Exception(ex.Message);
             }
         }
 
@@ -203,7 +224,7 @@ namespace WpfAppCesi
             }
             catch (Exception ex)
             {
-                throw new Exception("Erreur : " + ex.ToString());
+                throw new Exception(ex.Message);
             }
         }
 
@@ -285,7 +306,7 @@ namespace WpfAppCesi
             }
             catch (Exception ex)
             {
-                throw new Exception("Erreur : " + ex.ToString());
+                throw new Exception(ex.Message);
             }
         }
 
@@ -318,7 +339,7 @@ namespace WpfAppCesi
             }
             catch (Exception ex)
             {
-                throw new Exception("Erreur : " + ex.ToString());
+                throw new Exception(ex.Message);
             }
         }
 
@@ -330,7 +351,7 @@ namespace WpfAppCesi
             }
             catch (Exception ex)
             {
-                throw new Exception("Erreur : " + ex.ToString());
+                throw new Exception(ex.Message);
             }
         }
 
@@ -346,7 +367,7 @@ namespace WpfAppCesi
             }
             catch (Exception ex)
             {
-                throw new Exception("Erreur : " + ex.ToString());
+                throw new Exception(ex.Message);
             }
         }
 
@@ -366,7 +387,7 @@ namespace WpfAppCesi
             }
             catch (Exception ex)
             {
-                throw new Exception("Erreur : " + ex.ToString());
+                throw new Exception(ex.Message);
             }
         }
 
@@ -385,7 +406,7 @@ namespace WpfAppCesi
             }
             catch (Exception ex)
             {
-                throw new Exception("Erreur : " + ex.ToString());
+                throw new Exception(ex.Message);
             }
         }
 
@@ -422,7 +443,7 @@ namespace WpfAppCesi
             }
             catch (Exception ex)
             {
-                throw new Exception("Erreur : " + ex.ToString());
+                throw new Exception(ex.Message);
             }
         }
 
@@ -509,7 +530,7 @@ namespace WpfAppCesi
             }
             catch (Exception ex)
             {
-                throw new Exception("Erreur : " + ex.ToString());
+                throw new Exception(ex.Message);
             }
         }
 
@@ -536,7 +557,7 @@ namespace WpfAppCesi
             }
             catch (Exception ex)
             {
-                throw new Exception("Erreur : " + ex.ToString());
+                throw new Exception(ex.Message);
             }
         }
 
@@ -563,7 +584,7 @@ namespace WpfAppCesi
             }
             catch (Exception ex)
             {
-                throw new Exception("Erreur : " + ex.ToString());
+                throw new Exception(ex.Message);
             }
         }
 
@@ -608,7 +629,7 @@ namespace WpfAppCesi
             }
             catch (Exception ex)
             {
-                throw new Exception("Erreur : " + ex.ToString());
+                throw new Exception(ex.Message);
             }
         }
 
@@ -622,7 +643,7 @@ namespace WpfAppCesi
             }
             catch (Exception ex)
             {
-                throw new Exception("Erreur : " + ex.ToString());
+                throw new Exception(ex.Message);
             }
         }
 
@@ -642,7 +663,7 @@ namespace WpfAppCesi
             }
             catch (Exception ex)
             {
-                throw new Exception("Erreur : " + ex.ToString());
+                throw new Exception(ex.Message);
             }
         }
 
@@ -662,7 +683,7 @@ namespace WpfAppCesi
             }
             catch (Exception ex)
             {
-                throw new Exception("Erreur : " + ex.ToString());
+                throw new Exception(ex.Message);
             }
         }
 
@@ -678,7 +699,7 @@ namespace WpfAppCesi
             }
             catch (Exception ex)
             {
-                throw new Exception("Erreur : " + ex.ToString());
+                throw new Exception(ex.Message);
             }
         }
 
@@ -715,7 +736,7 @@ namespace WpfAppCesi
             }
             catch (Exception ex)
             {
-                throw new Exception("Erreur : " + ex.ToString());
+                throw new Exception(ex.Message);
             }
         }
 
@@ -800,7 +821,190 @@ namespace WpfAppCesi
             }
             catch (Exception ex)
             {
-                throw new Exception("Erreur : " + ex.ToString());
+                throw new Exception(ex.Message);
+            }
+        }
+
+        #endregion
+
+        #region Gestion des clients
+
+        private void ViderComposantsClients()
+        {
+            try
+            {
+                this.LbIdClient.Content = "";
+                this.TbNomClient.Text = "";
+                this.TbPrenomClient.Text = "";
+                //this.DtDateNaissance.SelectedDate;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        //TODO : vider les date time picker également
+
+        private void ActiverDesactiverControlesClients(bool choix)
+        {
+            try
+            {
+                if (!choix)
+                {
+                    ViderComposantsClients();
+                }
+                this.TbNomClient.IsEnabled = choix;
+                this.TbPrenomClient.IsEnabled = choix;
+                this.DtDateNaissance.IsEnabled = choix;
+                this.BtValiderClient.IsEnabled = choix;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        private void BtAjouterClient_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                this.BtAjouterClient.IsEnabled = false;
+                this.BtSupprimerClient.IsEnabled = false;
+
+                ViderComposantsClients();
+                ActiverDesactiverControlesClients(true);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        private void BtSupprimerClient_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                this.BtSupprimerClient.IsEnabled = false;
+
+                int idClient;
+                if (this.ClientsDataGrid.SelectedItem == null)
+                {
+                    return;
+                }
+                else
+                {
+                    idClient = Convert.ToInt32(((ClientsSet)this.ClientsDataGrid.SelectedItem).Id);
+                }
+
+                using (var db = new ModelBooking())
+                {
+                    var resultQuery = (from client in db.ClientsSet
+                                       where client.Id == idClient
+                                       select client);
+
+                    if (resultQuery.Any())
+                    {
+                        db.ClientsSet.Remove(resultQuery.First());
+                        db.SaveChanges();
+                    }
+                }
+                MessageBox.Show("Suppression effectuée !");
+                LoadClients();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        private void BtValiderClient_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                using (var db = new ModelBooking())
+                {
+                    bool isNewClient;
+                    ClientsSet client;
+
+                    if ((string)this.LbIdClient.Content != "" && this.LbIdClient.Content != null)
+                    {
+                        isNewClient = false;
+                        int idClient = Convert.ToInt32(this.LbIdClient.Content);
+
+                        var resultQuery = (from clients in db.ClientsSet
+                                           where clients.Id == idClient
+                                           select clients);
+
+                        if (resultQuery.Any())
+                        {
+                            client = resultQuery.First();
+                        }
+                        else
+                        {
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        isNewClient = true;
+                        client = new ClientsSet();
+                    }
+                    client.Nom = this.TbNomClient.Text;
+                    client.Prenom = this.TbPrenomClient.Text;
+                    client.DateNaissance = (DateTime)this.DtDateNaissance.SelectedDate;
+
+                    if (isNewClient)
+                    {
+                        db.ClientsSet.Add(client);
+                    }
+                    db.SaveChanges();
+                }
+                MessageBox.Show("Enregistré !");
+                
+                LoadClients();
+                ActiverDesactiverControlesClients(false);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        private void BtReserverChambre_TabClient_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        //TODO : coder boutons reserver chambres
+
+        private void ClientsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                if (this.ClientsDataGrid.SelectedItem == null)
+                {
+                    return;
+                }
+                ClientsSet client = (ClientsSet)ClientsDataGrid.SelectedItem;
+                if (client == null)
+                {
+                    return;
+                }
+
+                this.BtAjouterClient.IsEnabled = true;
+                this.BtSupprimerClient.IsEnabled = true;
+
+                this.LbIdClient.Content = client.Id.ToString();
+                this.TbNomClient.Text = client.Nom;
+                this.TbPrenomClient.Text = client.Prenom.ToString();
+                this.DtDateNaissance.SelectedDate = client.DateNaissance;
+
+                ActiverDesactiverControlesClients(true);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
             }
         }
 
@@ -831,7 +1035,7 @@ namespace WpfAppCesi
             }
             catch (Exception ex)
             {
-                throw new Exception("Erreur : " + ex.ToString());
+                throw new Exception(ex.Message);
             }
         }
 
@@ -843,7 +1047,7 @@ namespace WpfAppCesi
             }
             catch (Exception ex)
             {
-                throw new Exception("Erreur : " + ex.ToString());
+                throw new Exception(ex.Message);
             }
         }
 
@@ -855,12 +1059,10 @@ namespace WpfAppCesi
             }
             catch (Exception ex)
             {
-                throw new Exception("Erreur : " + ex.ToString());
+                throw new Exception(ex.Message);
             }
         }
 
         #endregion
-
-
     }
 }
