@@ -15,14 +15,14 @@
                         <ColumnDefinition Width="63*"/>
                         <ColumnDefinition Width="692*"/>
                     </Grid.ColumnDefinitions>
-                    <DataGrid x:Name="ChambresDataGrid" HorizontalAlignment="Left" Height="304" Margin="10,10,0,0" VerticalAlignment="Top" Width="579" Grid.ColumnSpan="3"/>
+                    <DataGrid x:Name="ChambresDataGrid" HorizontalAlignment="Left" Height="304" Margin="10,10,0,0" VerticalAlignment="Top" Width="579" Grid.ColumnSpan="3" SelectionChanged="ChambresDataGrid_SelectionChanged"/>
                     <Button x:Name="BtAjouterChambre" Content="Ajouter chambre" HorizontalAlignment="Left" Margin="10,334,0,0" VerticalAlignment="Top" Width="110" Height="27" Click="BtAjouterChambre_Click" Grid.ColumnSpan="3"/>
                     <Button x:Name="BtModifierChambre" Content="Modifier chambre" HorizontalAlignment="Left" Margin="60,334,0,0" VerticalAlignment="Top" Width="110" Height="27" Click="BtModifierChambre_Click" Grid.Column="2"/>
                     <Button x:Name="BtSupprimerChambre" Content="Supprimer chambre" HorizontalAlignment="Left" Margin="188,334,0,0" VerticalAlignment="Top" Width="121" Height="27" Click="BtSupprimerChambre_Click" Grid.Column="2"/>
                     <Button x:Name="BtReserverChambre" Content="Réserver" HorizontalAlignment="Left" Margin="325,334,0,0" VerticalAlignment="Top" Width="121" Height="27" Click="BtReserverChambre_Click" Grid.Column="2"/>
-                    <TextBox x:Name="TbNomChambre" IsEnabled="False" Grid.Column="2" HorizontalAlignment="Left" Height="23" Margin="541,37,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.481,1.49"/>
+                    <TextBox x:Name="TbNomChambre" IsEnabled="False" Grid.Column="2" HorizontalAlignment="Left" Height="23" Margin="541,37,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.481,1.49"/>
                     <Label x:Name="LbNomChambre" Content="Nom de la chambre :" Grid.Column="2" HorizontalAlignment="Left" Margin="541,11,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="TbNbLits" IsEnabled="False" Grid.Column="2" HorizontalAlignment="Left" Height="23" Margin="551,196,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="77" RenderTransformOrigin="0.481,1.49"/>
+                    <TextBox x:Name="TbNbLits" IsEnabled="False" Grid.Column="2" HorizontalAlignment="Left" Height="23" Margin="551,196,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="77" RenderTransformOrigin="0.481,1.49"/>
                     <Label x:Name="LbNbLits" Content="Nombre de lits :" Grid.Column="2" HorizontalAlignment="Left" Margin="543,170,0,0" VerticalAlignment="Top"/>
                     <ComboBox x:Name="CbHotels" IsEnabled="False" Grid.Column="2" HorizontalAlignment="Left" Margin="543,272,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="CbHotels_SelectionChanged"/>
                     <Label x:Name="LbHasClim" Content="Climatisation ?" Grid.Column="2" HorizontalAlignment="Left" Margin="541,83,0,0" VerticalAlignment="Top"/>

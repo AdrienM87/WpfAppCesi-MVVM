@@ -53,22 +53,58 @@ namespace WpfAppCesi
         #endregion
 
         #region gestion chambres
+
+        private void ViderComposants()
+        {
+            try
+            {
+                this.TbNomChambre.Text = "";
+                this.TbNbLits.Text = "";
+                this.RdHasClimO.IsChecked = false;
+                this.RdHasClimN.IsChecked = false;
+                //this.CbHotels.SelectedItem = null;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erreur : " + ex.ToString());
+            }
+        }
+
+        private void ActiverDesactiverControles(bool choix)
+        {
+            try
+            {
+                if (!choix)
+                {
+                    ViderComposants();
+                }
+                this.BtValiderChambre.IsEnabled = choix;
+                this.TbNomChambre.IsEnabled = choix;
+                this.TbNbLits.IsEnabled = choix;
+                this.RdHasClimO.IsEnabled = choix;
+                this.RdHasClimN.IsEnabled = choix;
+                this.CbHotels.IsEnabled = choix;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erreur : " + ex.ToString());
+            }
+        }
+
         private void BtAjouterChambre_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                this.BtValiderChambre.IsEnabled = true;
-                this.TbNomChambre.IsEnabled = true;
-                this.TbNbLits.IsEnabled = true;
-                this.RdHasClimO.IsEnabled = true;
-                this.RdHasClimN.IsEnabled = true;
-                this.CbHotels.IsEnabled = true;
+                this.BtAjouterChambre.IsEnabled = false;
+
+                ViderComposants();
+                ActiverDesactiverControles(true);
 
                 using (var db = new ModelBooking())
                 {
                     HashSet<HotelsSet> SetComboHotels = (from hotels in db.HotelsSet select hotels).ToHashSet();
-                    
-                    foreach(HotelsSet hotel in SetComboHotels)
+
+                    foreach (HotelsSet hotel in SetComboHotels)
                     {
                         this.CbHotels.Items.Add(hotel.Id);
                     }
@@ -120,7 +156,9 @@ namespace WpfAppCesi
                     db.SaveChanges();
                 }
                 MessageBox.Show("Chambre ajoutée !");
+
                 LoadChambres();
+                ActiverDesactiverControles(false);
             }
             catch (Exception ex)
             {
@@ -135,10 +173,32 @@ namespace WpfAppCesi
                 using (var db = new ModelBooking())
                 {
                     this.LbNomHotel.Content = (from hotels in db.HotelsSet
-                                                where hotels.Id == (int)this.CbHotels.SelectedValue
-                                                select hotels.Nom).First();                    
+                                               where hotels.Id == (int)this.CbHotels.SelectedValue
+                                               select hotels.Nom).First();
                 }
-                
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erreur : " + ex.ToString());
+            }
+        }
+
+        //TODO : interdire la sélection multiple
+        private void ChambresDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                this.BtAjouterChambre.IsEnabled = true;
+
+                ChambresSet chambre = (ChambresSet)ChambresDataGrid.SelectedItem;
+
+                this.TbNomChambre.Text = chambre.Nom;
+                this.TbNbLits.Text = chambre.NbLits.ToString();
+                this.RdHasClimO.IsChecked = chambre.Climatisation;
+                this.CbHotels.SelectedItem = chambre.keyHotel;
+
+                ActiverDesactiverControles(true);
             }
             catch (Exception ex)
             {
