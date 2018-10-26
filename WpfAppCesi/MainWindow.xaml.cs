@@ -42,7 +42,7 @@ namespace WpfAppCesi
                 using (var db = new ModelBooking())
                 {
                     HashSet<ChambresSet> SetChambres = (from chambres in db.ChambresSet select chambres).ToHashSet();
-                    ChambresDataGrid.ItemsSource = SetChambres;
+                    this.ChambresDataGrid.ItemsSource = SetChambres;
                 }
             }
             catch (Exception ex)
@@ -58,6 +58,7 @@ namespace WpfAppCesi
         {
             try
             {
+                this.LbIdChambre.Content = "";
                 this.TbNomChambre.Text = "";
                 this.TbNbLits.Text = "";
                 this.RdHasClimO.IsChecked = false;
@@ -78,6 +79,7 @@ namespace WpfAppCesi
                 {
                     ViderComposants();
                 }
+                this.BtModifierChambre.IsEnabled = choix;
                 this.BtValiderChambre.IsEnabled = choix;
                 this.TbNomChambre.IsEnabled = choix;
                 this.TbNbLits.IsEnabled = choix;
@@ -142,27 +144,60 @@ namespace WpfAppCesi
 
         private void BtValiderChambre_Click(object sender, RoutedEventArgs e)
         {
+            if (CbHotels.SelectedValue == null)
+            {
+                MessageBox.Show("Veuillez choisir un hotel");
+                return;
+            }
             try
             {
                 using (var db = new ModelBooking())
                 {
-                    ChambresSet chambre = new ChambresSet();
+                    bool isNewChambre;
+                    ChambresSet chambre;
+
+                    if ((string)this.LbIdChambre.Content != "" && this.LbIdChambre.Content != null)
+                    {
+                        isNewChambre = false;
+                        int idChambre = Convert.ToInt32(this.LbIdChambre.Content);
+
+                        var resultQuery = (from chambres in db.ChambresSet
+                                           where chambres.Id == idChambre
+                                           select chambres);
+
+                        if (resultQuery.Any())
+                        {
+                            chambre = resultQuery.First();
+                        }
+                        else
+                        {
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        isNewChambre = true;
+                        chambre = new ChambresSet();
+                    }
                     chambre.Nom = this.TbNomChambre.Text;
                     chambre.Climatisation = (bool)this.RdHasClimO.IsChecked;
                     chambre.NbLits = Convert.ToInt32(this.TbNbLits.Text);
                     chambre.keyHotel = Convert.ToInt32(this.CbHotels.SelectedValue);
 
-                    db.ChambresSet.Add(chambre);
+                    if (isNewChambre)
+                    {
+                        db.ChambresSet.Add(chambre);
+                    }
                     db.SaveChanges();
                 }
-                MessageBox.Show("Chambre ajoutée !");
+                MessageBox.Show("Enregistré !");
 
                 LoadChambres();
                 ActiverDesactiverControles(false);
             }
             catch (Exception ex)
             {
-                throw new Exception("Erreur : " + ex.ToString());
+                throw;
             }
         }
 
@@ -176,7 +211,6 @@ namespace WpfAppCesi
                                                where hotels.Id == (int)this.CbHotels.SelectedValue
                                                select hotels.Nom).First();
                 }
-
             }
             catch (Exception ex)
             {
@@ -185,14 +219,20 @@ namespace WpfAppCesi
         }
 
         //TODO : interdire la sélection multiple
+        //TODO : ajouter le chargement de la combo sur clic datagrid
         private void ChambresDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             try
-            {
-                this.BtAjouterChambre.IsEnabled = true;
-
+            {              
                 ChambresSet chambre = (ChambresSet)ChambresDataGrid.SelectedItem;
 
+                if (chambre == null)
+                {
+                    return;
+                }
+                this.BtAjouterChambre.IsEnabled = true;
+
+                this.LbIdChambre.Content = chambre.Id.ToString();
                 this.TbNomChambre.Text = chambre.Nom;
                 this.TbNbLits.Text = chambre.NbLits.ToString();
                 this.RdHasClimO.IsChecked = chambre.Climatisation;
@@ -210,9 +250,15 @@ namespace WpfAppCesi
 
         private void BtReserverChambre_Click(object sender, RoutedEventArgs e)
         {
+
+        }
+
+        //TODO : factoriser les boutons recharger et quitter
+        private void BtRecharger_Click(object sender, RoutedEventArgs e)
+        {
             try
             {
-
+                LoadDatas();
             }
             catch (Exception ex)
             {
@@ -220,6 +266,16 @@ namespace WpfAppCesi
             }
         }
 
-
+        private void BtQuitter_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erreur : " + ex.ToString());
+            }
+        }
     }
 }

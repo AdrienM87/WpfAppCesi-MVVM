@@ -5,9 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfAppCesi"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="499.432" Width="800">
     <Grid>
-        <TabControl HorizontalAlignment="Left" Height="399" Margin="10,10,0,0" VerticalAlignment="Top" Width="772">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="23*"/>
+            <ColumnDefinition Width="49*"/>
+        </Grid.ColumnDefinitions>
+        <TabControl HorizontalAlignment="Left" Height="399" Margin="10,10,0,0" VerticalAlignment="Top" Width="772" Grid.ColumnSpan="2">
             <TabItem Header="Chambre">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
@@ -16,21 +20,25 @@
                         <ColumnDefinition Width="692*"/>
                     </Grid.ColumnDefinitions>
                     <DataGrid x:Name="ChambresDataGrid" HorizontalAlignment="Left" Height="304" Margin="10,10,0,0" VerticalAlignment="Top" Width="579" Grid.ColumnSpan="3" SelectionChanged="ChambresDataGrid_SelectionChanged"/>
-                    <Button x:Name="BtAjouterChambre" Content="Ajouter chambre" HorizontalAlignment="Left" Margin="10,334,0,0" VerticalAlignment="Top" Width="110" Height="27" Click="BtAjouterChambre_Click" Grid.ColumnSpan="3"/>
-                    <Button x:Name="BtModifierChambre" Content="Modifier chambre" HorizontalAlignment="Left" Margin="60,334,0,0" VerticalAlignment="Top" Width="110" Height="27" Click="BtModifierChambre_Click" Grid.Column="2"/>
-                    <Button x:Name="BtSupprimerChambre" Content="Supprimer chambre" HorizontalAlignment="Left" Margin="188,334,0,0" VerticalAlignment="Top" Width="121" Height="27" Click="BtSupprimerChambre_Click" Grid.Column="2"/>
-                    <Button x:Name="BtReserverChambre" Content="Réserver" HorizontalAlignment="Left" Margin="325,334,0,0" VerticalAlignment="Top" Width="121" Height="27" Click="BtReserverChambre_Click" Grid.Column="2"/>
-                    <TextBox x:Name="TbNomChambre" IsEnabled="False" Grid.Column="2" HorizontalAlignment="Left" Height="23" Margin="541,37,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.481,1.49"/>
-                    <Label x:Name="LbNomChambre" Content="Nom de la chambre :" Grid.Column="2" HorizontalAlignment="Left" Margin="541,11,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="TbNbLits" IsEnabled="False" Grid.Column="2" HorizontalAlignment="Left" Height="23" Margin="551,196,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="77" RenderTransformOrigin="0.481,1.49"/>
-                    <Label x:Name="LbNbLits" Content="Nombre de lits :" Grid.Column="2" HorizontalAlignment="Left" Margin="543,170,0,0" VerticalAlignment="Top"/>
+                    <Button x:Name="BtAjouterChambre" Content="Ajouter chambre" HorizontalAlignment="Left" Margin="10,334,0,0" VerticalAlignment="Top" Width="103" Height="27" Click="BtAjouterChambre_Click" Grid.ColumnSpan="3"/>
+                    <Button x:Name="BtModifierChambre" IsEnabled="False" Content="Modifier" HorizontalAlignment="Left" Margin="607,319,0,0" VerticalAlignment="Top" Width="56" Height="20" Click="BtModifierChambre_Click" Grid.Column="2" RenderTransformOrigin="0.949,0.638"/>
+                    <Button x:Name="BtSupprimerChambre" Content="Supprimer chambre" HorizontalAlignment="Left" Margin="51,333,0,0" VerticalAlignment="Top" Width="113" Height="27" Click="BtSupprimerChambre_Click" Grid.Column="2"/>
+                    <Button x:Name="BtReserverChambre" Content="Réserver" HorizontalAlignment="Left" Margin="179,334,0,0" VerticalAlignment="Top" Width="114" Height="27" Click="BtReserverChambre_Click" Grid.Column="2"/>
+                    <TextBox x:Name="TbNomChambre" IsEnabled="False" Grid.Column="2" HorizontalAlignment="Left" Height="23" Margin="541,76,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.481,1.49"/>
+                    <Label x:Name="LbNomChambre" Content="Nom de la chambre :" Grid.Column="2" HorizontalAlignment="Left" Margin="541,50,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="TbNbLits" IsEnabled="False" Grid.Column="2" HorizontalAlignment="Left" Height="23" Margin="549,209,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="77" RenderTransformOrigin="0.481,1.49"/>
+                    <Label x:Name="LbNbLits" Content="Nombre de lits :" Grid.Column="2" HorizontalAlignment="Left" Margin="541,183,0,0" VerticalAlignment="Top"/>
                     <ComboBox x:Name="CbHotels" IsEnabled="False" Grid.Column="2" HorizontalAlignment="Left" Margin="543,272,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="CbHotels_SelectionChanged"/>
-                    <Label x:Name="LbHasClim" Content="Climatisation ?" Grid.Column="2" HorizontalAlignment="Left" Margin="541,83,0,0" VerticalAlignment="Top"/>
-                    <RadioButton x:Name="RdHasClimO" IsEnabled="False" Content="Oui" Grid.Column="2" HorizontalAlignment="Left" Margin="562,114,0,0" VerticalAlignment="Top"/>
-                    <RadioButton x:Name="RdHasClimN" IsEnabled="False" Content="Non" Grid.Column="2" HorizontalAlignment="Left" Margin="562,134,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="LbHasClim" Content="Climatisation ?" Grid.Column="2" HorizontalAlignment="Left" Margin="541,109,0,0" VerticalAlignment="Top"/>
+                    <RadioButton x:Name="RdHasClimO" IsEnabled="False" Content="Oui" Grid.Column="2" HorizontalAlignment="Left" Margin="562,140,0,0" VerticalAlignment="Top"/>
+                    <RadioButton x:Name="RdHasClimN" IsEnabled="False" Content="Non" Grid.Column="2" HorizontalAlignment="Left" Margin="562,160,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="LbHotels" Content="Hotel :" Grid.Column="2" HorizontalAlignment="Left" Margin="541,246,0,0" VerticalAlignment="Top"/>
-                    <Button x:Name="BtValiderChambre" IsEnabled="False" Content="Valider" Grid.Column="2" HorizontalAlignment="Left" Margin="543,319,0,0" VerticalAlignment="Top" Width="75" Click="BtValiderChambre_Click"/>
+                    <Button x:Name="BtValiderChambre" IsEnabled="False" Content="Valider" Grid.Column="2" HorizontalAlignment="Left" Margin="543,319,0,0" VerticalAlignment="Top" Width="57" Click="BtValiderChambre_Click"/>
                     <Label x:Name="LbNomHotel" Content="" Grid.Column="2" HorizontalAlignment="Left" Margin="591,246,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.44,-0.976"/>
+                    <Label x:Name="LbN" Content="N°" Grid.Column="2" HorizontalAlignment="Left" Margin="541,10,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="LbIdChambre" Content="" Grid.Column="2" HorizontalAlignment="Left" Margin="570,10,0,0" VerticalAlignment="Top"/>
+                    <Button x:Name="BtRecharger" Content="Recharger la page" HorizontalAlignment="Left" Margin="307,333,0,0" VerticalAlignment="Top" Width="113" Height="27" Grid.Column="2" Click="BtRecharger_Click"/>
+                    <Button x:Name="BtQuitter" Content="Quitter" HorizontalAlignment="Left" Margin="430,333,0,0" VerticalAlignment="Top" Width="85" Height="27" Grid.Column="2" Click="BtQuitter_Click"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Hotel"/>
