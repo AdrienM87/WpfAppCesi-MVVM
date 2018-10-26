@@ -92,6 +92,10 @@
     <Compile Include="Migrations\201810251431173_ajoutRelationChambreReservation.Designer.cs">
       <DependentUpon>201810251431173_ajoutRelationChambreReservation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810260643219_renommageClefsEtrangères.cs" />
+    <Compile Include="Migrations\201810260643219_renommageClefsEtrangères.Designer.cs">
+      <DependentUpon>201810260643219_renommageClefsEtrangères.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\ChambresSet.cs" />
     <Compile Include="ClassMain.cs" />
     <Compile Include="Models\ReservationSet.cs" />
@@ -161,6 +165,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810251431173_ajoutRelationChambreReservation.resx">
       <DependentUpon>201810251431173_ajoutRelationChambreReservation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810260643219_renommageClefsEtrangères.resx">
+      <DependentUpon>201810260643219_renommageClefsEtrangères.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

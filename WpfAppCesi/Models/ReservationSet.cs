@@ -17,11 +17,13 @@
         [Required]
         public DateTime dateFin { get; set; }
 
-        public int ClientsSetId { get; set; }
+        //foreign key
+        public int keyClient { get; set; }
 
         public ClientsSet Client { get; set; }
 
-        public int ChambresSetId { get; set; }
+        //foreign key
+        public int keyChambre { get; set; }
 
         public ChambresSet Chambres { get; set; }
     }

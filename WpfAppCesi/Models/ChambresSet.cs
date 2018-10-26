@@ -18,7 +18,8 @@ namespace WpfAppCesi
 
         public int NbLits { get; set; }
 
-        public int HotelsSetId { get; set; }
+        //Foreign key
+        public int keyHotel { get; set; }
 
         public HotelsSet Hotel { get; set; }
 

@@ -114,7 +114,7 @@ namespace WpfAppCesi
                     chambre.Nom = this.TbNomChambre.Text;
                     chambre.Climatisation = (bool)this.RdHasClimO.IsChecked;
                     chambre.NbLits = Convert.ToInt32(this.TbNbLits.Text);
-                    chambre.HotelsSetId = Convert.ToInt32(this.CbHotels.SelectedValue);
+                    chambre.keyHotel = Convert.ToInt32(this.CbHotels.SelectedItem);
 
                     db.ChambresSet.Add(chambre);
                     db.SaveChanges();
