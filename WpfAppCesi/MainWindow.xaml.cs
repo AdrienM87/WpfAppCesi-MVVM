@@ -79,7 +79,6 @@ namespace WpfAppCesi
                 {
                     ViderComposants();
                 }
-                this.BtModifierChambre.IsEnabled = choix;
                 this.BtValiderChambre.IsEnabled = choix;
                 this.TbNomChambre.IsEnabled = choix;
                 this.TbNbLits.IsEnabled = choix;
@@ -93,15 +92,10 @@ namespace WpfAppCesi
             }
         }
 
-        private void BtAjouterChambre_Click(object sender, RoutedEventArgs e)
+        private void ChargementComboHotel()
         {
             try
             {
-                this.BtAjouterChambre.IsEnabled = false;
-
-                ViderComposants();
-                ActiverDesactiverControles(true);
-
                 using (var db = new ModelBooking())
                 {
                     HashSet<HotelsSet> SetComboHotels = (from hotels in db.HotelsSet select hotels).ToHashSet();
@@ -118,11 +112,16 @@ namespace WpfAppCesi
             }
         }
 
-        private void BtModifierChambre_Click(object sender, RoutedEventArgs e)
+        private void BtAjouterChambre_Click(object sender, RoutedEventArgs e)
         {
             try
             {
+                this.BtAjouterChambre.IsEnabled = false;
 
+                ViderComposants();
+                ActiverDesactiverControles(true);
+
+                ChargementComboHotel();
             }
             catch (Exception ex)
             {
@@ -134,7 +133,30 @@ namespace WpfAppCesi
         {
             try
             {
+                int idChambre;
+                if (this.ChambresDataGrid.SelectedItem == null)
+                {
+                    return;
+                }
+                else
+                {
+                    idChambre = Convert.ToInt32(((ChambresSet)this.ChambresDataGrid.SelectedItem).Id);
+                }
 
+                using (var db = new ModelBooking())
+                {
+                    var resultQuery = (from chambres in db.ChambresSet
+                                       where chambres.Id == idChambre
+                                       select chambres);
+
+                    if (resultQuery.Any())
+                    {
+                        db.ChambresSet.Remove(resultQuery.First());
+                        db.SaveChanges();
+                    }
+                }
+                MessageBox.Show("Suppression effectuée !");
+                LoadChambres();
             }
             catch (Exception ex)
             {
@@ -219,17 +241,22 @@ namespace WpfAppCesi
         }
 
         //TODO : interdire la sélection multiple
-        //TODO : ajouter le chargement de la combo sur clic datagrid
         private void ChambresDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             try
-            {              
+            {
+                if (this.ChambresDataGrid.SelectedItem == null)
+                {
+                    return;
+                }
                 ChambresSet chambre = (ChambresSet)ChambresDataGrid.SelectedItem;
-
                 if (chambre == null)
                 {
                     return;
                 }
+
+                ChargementComboHotel();
+
                 this.BtAjouterChambre.IsEnabled = true;
 
                 this.LbIdChambre.Content = chambre.Id.ToString();
