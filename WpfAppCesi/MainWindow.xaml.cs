@@ -273,14 +273,22 @@ namespace WpfAppCesi
             }
         }
 
-        #endregion
-
         private void BtReserverChambre_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
 
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erreur : " + ex.ToString());
+            }
         }
 
-        //TODO : factoriser les boutons recharger et quitter
+        #endregion
+
+
+
         private void BtRecharger_Click(object sender, RoutedEventArgs e)
         {
             try
