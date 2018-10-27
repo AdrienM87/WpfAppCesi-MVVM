@@ -24,6 +24,7 @@ using System.Windows.Shapes;
  */
 
 //TODO : retirer les colonnes inutiles des datagrid
+//¤ replacer controles dans des grids pour groupbox
 
 namespace WpfAppCesi
 {
