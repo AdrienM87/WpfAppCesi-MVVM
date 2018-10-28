@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace WpfAppCesi.ViewModel
 {
@@ -26,15 +27,48 @@ namespace WpfAppCesi.ViewModel
         public ObservableCollection<HotelsSet> HotelsCollection
         {
             get { return hotelsCollection; }
-            set { hotelsCollection = value; NotifyPropertyChanged(); }
+            set
+            {
+                if (value != hotelsCollection)
+                {
+                    hotelsCollection = value;
+                    NotifyPropertyChanged();
+                }
+            }
         }
 
-        private HotelsSet hotel;
+        private HotelsSet hotelSelected;
 
-        public HotelsSet Hotel
+        public HotelsSet HotelSelected
         {
-            get { return hotel; }
-            set { hotel = value; NotifyPropertyChanged(); }
+            get { return hotelSelected; }
+            set
+            {
+                if (value != hotelSelected)
+                {
+                    hotelSelected = value;
+                    NotifyPropertyChanged();
+                }
+            }
         }
+
+        public ICommand RazPageHotel
+        {
+
+            get
+            {
+                return razPageHotel;
+            }
+
+
+        }
+
+        private ICommand razPageHotel = new RelayCommand<HotelsSet>((hotel) =>
+        {
+            hotel.Nom = "";
+            hotel.Capacite = 0;
+            hotel.Localisation = "";
+            hotel.Pays = "";
+        });
     }
 }
