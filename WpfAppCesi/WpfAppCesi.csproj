@@ -111,6 +111,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ClientsSet.cs" />
+    <Compile Include="RelayCommand.cs" />
     <Compile Include="ViewModel\ChambresViewModel.cs" />
     <Compile Include="ViewModel\ClientsViewModel.cs" />
     <Compile Include="ViewModel\HotelsViewModel.cs" />
