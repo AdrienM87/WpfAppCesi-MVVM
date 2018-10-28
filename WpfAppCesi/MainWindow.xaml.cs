@@ -217,30 +217,20 @@ namespace WpfAppCesi
             {
                 this.BtSupprimerHotel.IsEnabled = false;
 
-                int idHotel;
                 if (this.HotelsDataGrid.SelectedItem == null)
                 {
                     return;
                 }
+                bool result = ((HotelsSet)this.HotelsDataGrid.SelectedItem).SupprimerHotel();
+                if (result)
+                {
+                    MessageBox.Show("Suppression effectuée !");
+                    LoadHotels();
+                }
                 else
                 {
-                    idHotel = Convert.ToInt32(((HotelsSet)this.HotelsDataGrid.SelectedItem).Id);
+                    MessageBox.Show("Erreur de suppression.");
                 }
-
-                using (var db = new ModelBooking())
-                {
-                    var resultQuery = (from hotel in db.HotelsSet
-                                       where hotel.Id == idHotel
-                                       select hotel);
-
-                    if (resultQuery.Any())
-                    {
-                        db.HotelsSet.Remove(resultQuery.First());
-                        db.SaveChanges();
-                    }
-                }
-                MessageBox.Show("Suppression effectuée !");
-                LoadHotels();
             }
             catch (Exception ex)
             {
@@ -252,49 +242,43 @@ namespace WpfAppCesi
         {
             try
             {
-                using (var db = new ModelBooking())
+                bool isNewHotel;
+                HotelsSet hotel = new HotelsSet();
+
+                if ((string)this.LbIdHotel.Content != "" && this.LbIdHotel.Content != null)
                 {
-                    bool isNewHotel;
-                    HotelsSet hotel;
+                    isNewHotel = false;
+                    int idHotel = Convert.ToInt32(this.LbIdHotel.Content);
 
-                    if ((string)this.LbIdHotel.Content != "" && this.LbIdHotel.Content != null)
+                    hotel = hotel.GetHotel(idHotel);
+                    if (hotel == null)
                     {
-                        isNewHotel = false;
-                        int idHotel = Convert.ToInt32(this.LbIdHotel.Content);
-
-                        var resultQuery = (from hotels in db.HotelsSet
-                                           where hotels.Id == idHotel
-                                           select hotels);
-
-                        if (resultQuery.Any())
-                        {
-                            hotel = resultQuery.First();
-                        }
-                        else
-                        {
-                            return;
-                        }
+                        return;
                     }
-                    else
-                    {
-                        isNewHotel = true;
-                        hotel = new HotelsSet();
-                    }
-                    hotel.Nom = this.TbNomHotel.Text;
-                    hotel.Capacite = Convert.ToInt32(this.TbCapacite.Text);
-                    hotel.Localisation = this.TbLocalisation.Text;
-                    hotel.Pays = this.TbPays.Text;
-
-                    if (isNewHotel)
-                    {
-                        db.HotelsSet.Add(hotel);
-                    }
-                    db.SaveChanges();
                 }
-                MessageBox.Show("Enregistré !");
+                else
+                {
+                    isNewHotel = true;
+                }
+                bool result = hotel.ValiderHotel(
 
-                LoadHotels();
-                ActiverDesactiverControlesHotels(false);
+                                isNewHotel,
+                                this.TbNomHotel.Text,
+                                Convert.ToInt32(this.TbCapacite.Text),
+                                this.TbLocalisation.Text,
+                                this.TbPays.Text
+                );
+                if (result)
+                {
+                    MessageBox.Show("Enregistré !");
+                    LoadHotels();
+                    ActiverDesactiverControlesHotels(false);
+                }
+                else
+                {
+                    MessageBox.Show("Enregistrement échoué.");
+                }
+
             }
             catch (Exception ex)
             {

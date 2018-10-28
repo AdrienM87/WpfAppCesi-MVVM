@@ -13,13 +13,16 @@ namespace WpfAppCesi
     [Table("HotelsSet")]
     public partial class HotelsSet : INotifyPropertyChanged
     {
+        #region Attributs privés
         private int id;
         private string nom;
         private int capacite;
         private string localisation;
         private string pays;
         private ICollection<ChambresSet> chambresSet;
+        #endregion
 
+        #region Propriétés
         public int Id { get => id; set => id = value; }
 
         [Required]
@@ -34,5 +37,85 @@ namespace WpfAppCesi
         public virtual ICollection<ChambresSet> ChambresSet { get => chambresSet; set => chambresSet = value; }
 
         public event PropertyChangedEventHandler PropertyChanged;
+        #endregion
+
+        #region Méthodes statiques
+        public bool SupprimerHotel()
+        {
+            try
+            {
+                using (var db = new ModelBooking())
+                {
+                    var resultQuery = (from hotel in db.HotelsSet
+                                       where hotel.Id == Id
+                                       select hotel);
+
+                    if (resultQuery.Any())
+                    {
+                        db.HotelsSet.Remove(resultQuery.First());
+                        db.SaveChanges();
+                        return true;
+                    }
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }            
+        }
+
+        public HotelsSet GetHotel(int idHotel)
+        {
+            try
+            {
+                using (var db = new ModelBooking())
+                {
+                    var resultQuery = (from hotels in db.HotelsSet
+                                       where hotels.Id == idHotel
+                                       select hotels);
+
+                    if (resultQuery.Any())
+                    {
+                        return resultQuery.First();
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public bool ValiderHotel(bool isNewHotel, string nom, int capacite, string localisation, string pays)
+        {
+            try
+            {
+                using (var db = new ModelBooking())
+                {
+                    HotelsSet hotel = new HotelsSet();
+                    hotel.Nom = nom;
+                    hotel.Capacite = capacite;
+                    hotel.Localisation = localisation;
+                    hotel.Pays = pays;
+
+                    if (isNewHotel)
+                    {
+                        db.HotelsSet.Add(hotel);
+                    }
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+        #endregion
     }
 }
