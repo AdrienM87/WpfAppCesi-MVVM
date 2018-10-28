@@ -39,7 +39,7 @@ namespace WpfAppCesi
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion
 
-        #region Méthodes statiques
+        #region Méthodes
         public bool SupprimerHotel()
         {
             try
@@ -91,19 +91,29 @@ namespace WpfAppCesi
             }
         }
 
-        public bool ValiderHotel(bool isNewHotel, string nom, int capacite, string localisation, string pays)
+        public bool ValiderHotel(int idHotel, string nom, int capacite, string localisation, string pays)
         {
             try
             {
-                using (var db = new ModelBooking())
+                HotelsSet hotel;
+
+                if (idHotel != 0) //si id!=0 alors l'hotel existe déjà
                 {
-                    HotelsSet hotel = new HotelsSet();
+                    hotel = GetHotel(idHotel);
+                }
+                else
+                {
+                    hotel = new HotelsSet();
+                }
+
+                using (var db = new ModelBooking())
+                {                        
                     hotel.Nom = nom;
                     hotel.Capacite = capacite;
                     hotel.Localisation = localisation;
                     hotel.Pays = pays;
 
-                    if (isNewHotel)
+                    if (idHotel == 0)   //nouvel hotel
                     {
                         db.HotelsSet.Add(hotel);
                     }

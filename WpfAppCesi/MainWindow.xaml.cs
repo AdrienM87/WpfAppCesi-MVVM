@@ -89,20 +89,22 @@ namespace WpfAppCesi
                     if (resultQuery.Any())
                     {
                         HashSet<ChambresSet> SetChambres = resultQuery.ToHashSet();
+                        this.ChambresDataGrid.ItemsSource = SetChambres;
 
-                        DataTable data = new DataTable();
-                        data.Columns.Add("N° chambre");
-                        data.Columns.Add("Nom de la chambre");
-                        data.Columns.Add("Climatisation");
-                        data.Columns.Add("Nombre de lits");
-                        data.Columns.Add("N° hotel de la chambre");
+                        //DataTable data = new DataTable();
+                        //data.Columns.Add("N° chambre");
+                        //data.Columns.Add("Nom de la chambre");
+                        //data.Columns.Add("Climatisation");
+                        //data.Columns.Add("Nombre de lits");
+                        //data.Columns.Add("N° hotel de la chambre");
 
-                        foreach (ChambresSet ch in SetChambres)
-                        {
-                            data.Rows.Add(new object[] { ch.Id, ch.Nom, ch.Climatisation, ch.NbLits, ch.keyHotel });
-                        }
+                        //foreach (ChambresSet ch in SetChambres)
+                        //{
+                        //    data.Rows.Add(new object[] { ch.Id, ch.Nom, ch.Climatisation, ch.NbLits, ch.keyHotel });
+                        //}
 
-                        this.ChambresDataGrid.ItemsSource = (System.Collections.IEnumerable)data;
+                        //this.ChambresDataGrid.ItemsSource = (System.Collections.IEnumerable)data;
+                        
                     }
                 }
             }
@@ -224,8 +226,8 @@ namespace WpfAppCesi
                 bool result = ((HotelsSet)this.HotelsDataGrid.SelectedItem).SupprimerHotel();
                 if (result)
                 {
-                    MessageBox.Show("Suppression effectuée !");
                     LoadHotels();
+                    MessageBox.Show("Suppression effectuée !");
                 }
                 else
                 {
@@ -242,27 +244,16 @@ namespace WpfAppCesi
         {
             try
             {
-                bool isNewHotel;
-                HotelsSet hotel = new HotelsSet();
+                int idHotel = 0;
 
                 if ((string)this.LbIdHotel.Content != "" && this.LbIdHotel.Content != null)
                 {
-                    isNewHotel = false;
-                    int idHotel = Convert.ToInt32(this.LbIdHotel.Content);
-
-                    hotel = hotel.GetHotel(idHotel);
-                    if (hotel == null)
-                    {
-                        return;
-                    }
+                    idHotel = Convert.ToInt32(this.LbIdHotel.Content);
                 }
-                else
-                {
-                    isNewHotel = true;
-                }
-                bool result = hotel.ValiderHotel(
 
-                                isNewHotel,
+                bool result = new HotelsSet().ValiderHotel(
+
+                                idHotel,
                                 this.TbNomHotel.Text,
                                 Convert.ToInt32(this.TbCapacite.Text),
                                 this.TbLocalisation.Text,
@@ -270,9 +261,9 @@ namespace WpfAppCesi
                 );
                 if (result)
                 {
-                    MessageBox.Show("Enregistré !");
                     LoadHotels();
                     ActiverDesactiverControlesHotels(false);
+                    MessageBox.Show("Enregistré !");
                 }
                 else
                 {
