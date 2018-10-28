@@ -26,7 +26,7 @@
                     </Grid.ColumnDefinitions>
                     
                     <DataGrid x:Name="HotelsDataGrid" SelectionMode="Single" HorizontalAlignment="Left" Height="304" Margin="10,10,0,0" VerticalAlignment="Top" Width="579" Grid.ColumnSpan="5" SelectionChanged="HotelsDataGrid_SelectionChanged"/>
-                    <Button x:Name="BtAjouterHotel" Content="Ajouter hotel" HorizontalAlignment="Left" Margin="10,319,0,0" VerticalAlignment="Top" Width="98" Height="32" Grid.ColumnSpan="4" Command="{Binding RazPageHotel}" CommandParameter="{Binding HotelSelected}"/>
+                    <Button x:Name="BtAjouterHotel" Content="Ajouter hotel" HorizontalAlignment="Left" Margin="10,319,0,0" VerticalAlignment="Top" Width="98" Height="32" Grid.ColumnSpan="4" Click="BtAjouterHotel_Click"/>
                     <Button x:Name="BtSupprimerHotel" IsEnabled="False" Content="Supprimer hotel" HorizontalAlignment="Left" Margin="86,319,0,0" VerticalAlignment="Top" Width="109" Height="32" Grid.Column="3" Click="BtSupprimerHotel_Click" Grid.ColumnSpan="2"/>
                     <Button x:Name="BtValiderHotel" IsEnabled="False" Content="Valider" Grid.Column="4" HorizontalAlignment="Left" Margin="498,336,0,0" VerticalAlignment="Top" Width="57" Click="BtValiderHotel_Click"/>
 
@@ -41,6 +41,7 @@
                     <TextBox x:Name="TbCapacite" IsEnabled="False" HorizontalAlignment="Left" Height="23" Margin="485.407,146,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="77" RenderTransformOrigin="0.481,1.49" Grid.Column="4"/>
                     <TextBox x:Name="TbLocalisation" IsEnabled="False" HorizontalAlignment="Left" Height="23" Margin="485.407,219,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="77" RenderTransformOrigin="0.481,1.49" Grid.Column="4"/>
                     <TextBox x:Name="TbPays" IsEnabled="False" HorizontalAlignment="Left" Height="23" Margin="485.407,290,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="77" RenderTransformOrigin="0.481,1.49" Grid.Column="4"/>
+                    <Button Content="Command" Grid.Column="4" HorizontalAlignment="Left" Margin="176,411,0,0" VerticalAlignment="Top" Width="75" Command="{Binding RazPageHotel}" CommandParameter="{Binding HotelSelected}"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Chambre">

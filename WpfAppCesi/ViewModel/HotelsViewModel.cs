@@ -57,13 +57,10 @@ namespace WpfAppCesi.ViewModel
 
         public ICommand RazPageHotel
         {
-
             get
             {
                 return razPageHotel;
             }
-
-
         }
 
         private ICommand razPageHotel = new RelayCommand<HotelsSet>((hotel) =>
@@ -73,7 +70,7 @@ namespace WpfAppCesi.ViewModel
             hotel.Localisation = "";
             hotel.Pays = "";
         });
-        //¤ les boutons ajouts ne sont pas fonctionnels (Icommand)
+        //¤ ce boutons ajout ne sont pas fonctionnels (Icommand)
 
         public bool VMsupprimerHotel(HotelsSet hotel)
         {

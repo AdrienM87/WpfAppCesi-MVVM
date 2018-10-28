@@ -45,17 +45,31 @@ namespace WpfAppCesi
         public MainWindow()
         {
             InitializeComponent();
-            LoadDatas();
+            LoadDatas(EnumGestionInterfaces.Hotel);
+            LoadDatas(EnumGestionInterfaces.Chambre);
+            LoadDatas(EnumGestionInterfaces.Client);
+            LoadDatas(EnumGestionInterfaces.Reservation);
         }
 
-        private void LoadDatas()
+        private void LoadDatas(EnumGestionInterfaces enumGestion)
         {
             try
             {
-                this.HotelsDataGrid.ItemsSource = new HotelsViewModel().VMgetHotels();
-                this.ChambresDataGrid.ItemsSource = new ChambresViewModel().VMgetChambres();
-                this.ClientsDataGrid.ItemsSource = new ClientsViewModel().VMgetClients();
-                this.ReservationDataGrid.ItemsSource = new ReservationsViewModel().VMgetReservations();
+                switch (enumGestion)
+                {
+                    case EnumGestionInterfaces.Hotel:
+                        this.HotelsDataGrid.ItemsSource = new HotelsViewModel().VMgetHotels();
+                        break;
+                    case EnumGestionInterfaces.Chambre:
+                        this.ChambresDataGrid.ItemsSource = new ChambresViewModel().VMgetChambres();
+                        break;
+                    case EnumGestionInterfaces.Client:
+                        this.ClientsDataGrid.ItemsSource = new ClientsViewModel().VMgetClients();
+                        break;
+                    case EnumGestionInterfaces.Reservation:
+                        this.ReservationDataGrid.ItemsSource = new ReservationsViewModel().VMgetReservations();
+                        break;
+                }
             }
             catch (Exception ex)
             {
@@ -132,7 +146,7 @@ namespace WpfAppCesi
                 bool result = new HotelsViewModel().VMsupprimerHotel((HotelsSet)this.HotelsDataGrid.SelectedItem);
                 if (result)
                 {
-                    LoadHotels();
+                    LoadDatas(EnumGestionInterfaces.Hotel);
                     MessageBox.Show("Suppression effectuée !");
                 }
                 else
@@ -167,7 +181,7 @@ namespace WpfAppCesi
                 );
                 if (result)
                 {
-                    LoadHotels();
+                    LoadDatas(EnumGestionInterfaces.Hotel);
                     ActiverDesactiverControlesHotels(false);
                     MessageBox.Show("Enregistré !");
                 }
@@ -175,7 +189,6 @@ namespace WpfAppCesi
                 {
                     MessageBox.Show("Enregistrement échoué.");
                 }
-
             }
             catch (Exception ex)
             {
@@ -286,16 +299,16 @@ namespace WpfAppCesi
                 {
                     return;
                 }
-                //bool result = ((HotelsSet)this.ChambresDataGrid.SelectedItem).SupprimerHotel();
-                //if (result)
-                //{
-                //    LoadHotels();
-                //    MessageBox.Show("Suppression effectuée !");
-                //}
-                //else
-                //{
-                //    MessageBox.Show("Erreur de suppression.");
-                //}
+                bool result = new ChambresViewModel().VMsupprimerChambre((ChambresSet)this.ChambresDataGrid.SelectedItem);
+                if (result)
+                {
+                    LoadDatas(EnumGestionInterfaces.Chambre);
+                    MessageBox.Show("Suppression effectuée !");
+                }
+                else
+                {
+                    MessageBox.Show("Erreur de suppression.");
+                }
             }
             catch (Exception ex)
             {
@@ -307,55 +320,31 @@ namespace WpfAppCesi
         {
             try
             {
-                if (CbHotels_TabChambres.SelectedValue == null)
+                int idChambre = 0;
+
+                if ((string)this.LbIdChambre.Content != "" && this.LbIdChambre.Content != null)
                 {
-                    MessageBox.Show("Veuillez choisir un hotel");
-                    return;
-                }
+                    idChambre = Convert.ToInt32(this.LbIdChambre.Content);
+                }                
 
-                using (var db = new ModelBooking())
+                bool result = new ChambresViewModel().VMvaliderChambre(
+
+                                idChambre,
+                                this.TbNomChambre.Text,
+                                (bool)this.RdHasClimO.IsChecked,
+                                Convert.ToInt32(this.TbNbLits.Text),
+                                Convert.ToInt32(this.CbHotels_TabChambres.SelectedValue)
+                );
+                if (result)
                 {
-                    bool isNewChambre;
-                    ChambresSet chambre;
-
-                    if ((string)this.LbIdChambre.Content != "" && this.LbIdChambre.Content != null)
-                    {
-                        isNewChambre = false;
-                        int idChambre = Convert.ToInt32(this.LbIdChambre.Content);
-
-                        var resultQuery = (from chambres in db.ChambresSet
-                                           where chambres.Id == idChambre
-                                           select chambres);
-
-                        if (resultQuery.Any())
-                        {
-                            chambre = resultQuery.First();
-                        }
-                        else
-                        {
-                            return;
-                        }
-                    }
-                    else
-                    {
-                        isNewChambre = true;
-                        chambre = new ChambresSet();
-                    }
-                    chambre.Nom = this.TbNomChambre.Text;
-                    chambre.Climatisation = (bool)this.RdHasClimO.IsChecked;
-                    chambre.NbLits = Convert.ToInt32(this.TbNbLits.Text);
-                    chambre.KeyHotel = Convert.ToInt32(this.CbHotels_TabChambres.SelectedValue);
-
-                    if (isNewChambre)
-                    {
-                        db.ChambresSet.Add(chambre);
-                    }
-                    db.SaveChanges();
+                    LoadDatas(EnumGestionInterfaces.Chambre);
+                    ActiverDesactiverControlesChambres(false);
+                    MessageBox.Show("Enregistré !");
                 }
-                MessageBox.Show("Enregistré !");
-
-                LoadChambres();
-                ActiverDesactiverControlesChambres(false);
+                else
+                {
+                    MessageBox.Show("Enregistrement échoué.");
+                }
             }
             catch (Exception ex)
             {
@@ -500,16 +489,16 @@ namespace WpfAppCesi
                 {
                     return;
                 }
-                //bool result = ((HotelsSet)this.HotelsDataGrid.SelectedItem).SupprimerHotel();
-                //if (result)
-                //{
-                //    LoadHotels();
-                //    MessageBox.Show("Suppression effectuée !");
-                //}
-                //else
-                //{
-                //    MessageBox.Show("Erreur de suppression.");
-                //}
+                bool result = new ClientsViewModel().VMsupprimerClient((ClientsSet)this.ClientsDataGrid.SelectedItem);
+                if (result)
+                {
+                    LoadDatas(EnumGestionInterfaces.Client);
+                    MessageBox.Show("Suppression effectuée !");
+                }
+                else
+                {
+                    MessageBox.Show("Erreur de suppression.");
+                }
             }
             catch (Exception ex)
             {
@@ -521,48 +510,30 @@ namespace WpfAppCesi
         {
             try
             {
-                using (var db = new ModelBooking())
+                int idClient = 0;
+
+                if ((string)this.LbIdClient.Content != "" && this.LbIdClient.Content != null)
                 {
-                    bool isNewClient;
-                    ClientsSet client;
-
-                    if ((string)this.LbIdClient.Content != "" && this.LbIdClient.Content != null)
-                    {
-                        isNewClient = false;
-                        int idClient = Convert.ToInt32(this.LbIdClient.Content);
-
-                        var resultQuery = (from clients in db.ClientsSet
-                                           where clients.Id == idClient
-                                           select clients);
-
-                        if (resultQuery.Any())
-                        {
-                            client = resultQuery.First();
-                        }
-                        else
-                        {
-                            return;
-                        }
-                    }
-                    else
-                    {
-                        isNewClient = true;
-                        client = new ClientsSet();
-                    }
-                    client.Nom = this.TbNomClient.Text;
-                    client.Prenom = this.TbPrenomClient.Text;
-                    client.DateNaissance = (DateTime)this.DtDateNaissance.SelectedDate;
-
-                    if (isNewClient)
-                    {
-                        db.ClientsSet.Add(client);
-                    }
-                    db.SaveChanges();
+                    idClient = Convert.ToInt32(this.LbIdClient.Content);
                 }
-                MessageBox.Show("Enregistré !");
 
-                LoadClients();
-                ActiverDesactiverControlesClients(false);
+                bool result = new ClientsViewModel().VMvaliderClient(
+
+                                idClient,
+                                this.TbPrenomClient.Text,
+                                this.TbNomClient.Text,
+                                (DateTime)this.DtDateNaissance.SelectedDate
+                );
+                if (result)
+                {
+                    LoadDatas(EnumGestionInterfaces.Client);
+                    ActiverDesactiverControlesClients(false);
+                    MessageBox.Show("Enregistré !");
+                }
+                else
+                {
+                    MessageBox.Show("Enregistrement échoué.");
+                }
             }
             catch (Exception ex)
             {
@@ -683,16 +654,16 @@ namespace WpfAppCesi
                 {
                     return;
                 }
-                //bool result = ((HotelsSet)this.HotelsDataGrid.SelectedItem).SupprimerHotel();
-                //if (result)
-                //{
-                //    LoadHotels();
-                //    MessageBox.Show("Suppression effectuée !");
-                //}
-                //else
-                //{
-                //    MessageBox.Show("Erreur de suppression.");
-                //}
+                bool result = new ReservationsViewModel().VMsupprimerReservation((ReservationSet)this.ReservationDataGrid.SelectedItem);
+                if (result)
+                {
+                    LoadDatas(EnumGestionInterfaces.Reservation);
+                    MessageBox.Show("Suppression effectuée !");
+                }
+                else
+                {
+                    MessageBox.Show("Erreur de suppression.");
+                }
             }
             catch (Exception ex)
             {
@@ -706,55 +677,31 @@ namespace WpfAppCesi
         {
             try
             {
-                if (CbChambres.SelectedValue == null)
+                int idReservation = 0;
+
+                if ((string)this.LbIdReservation.Content != "" && this.LbIdReservation.Content != null)
                 {
-                    MessageBox.Show("Veuillez choisir un hotel puis une chambre");
-                    return;
+                    idReservation = Convert.ToInt32(this.LbIdReservation.Content);
                 }
 
-                using (var db = new ModelBooking())
+                bool result = new ReservationsViewModel().VMvaliderReservation(
+
+                                idReservation,
+                                (DateTime)this.DtDebutReservation.SelectedDate,
+                                (DateTime)this.DtFinReservation.SelectedDate,
+                                (int)this.CbClient.SelectedValue,
+                                (int)this.CbChambres.SelectedValue
+                );
+                if (result)
                 {
-                    bool isNewReservation;
-                    ReservationSet reservation;
-
-                    if ((string)this.LbIdReservation.Content != "" && this.LbIdReservation.Content != null)
-                    {
-                        isNewReservation = false;
-                        int idReservation = Convert.ToInt32(this.LbIdReservation.Content);
-
-                        var resultQuery = (from reservations in db.ReservationsSet
-                                           where reservations.Id == idReservation
-                                           select reservations);
-
-                        if (resultQuery.Any())
-                        {
-                            reservation = resultQuery.First();
-                        }
-                        else
-                        {
-                            return;
-                        }
-                    }
-                    else
-                    {
-                        isNewReservation = true;
-                        reservation = new ReservationSet();
-                    }
-                    reservation.DateDebut = (DateTime)this.DtDebutReservation.SelectedDate;
-                    reservation.DateFin = (DateTime)this.DtFinReservation.SelectedDate;
-                    reservation.KeyClient = Convert.ToInt32(this.CbClient.SelectedValue);
-                    reservation.KeyChambre = Convert.ToInt32(this.CbChambres.SelectedValue);
-
-                    if (isNewReservation)
-                    {
-                        db.ReservationsSet.Add(reservation);
-                    }
-                    db.SaveChanges();
+                    LoadDatas(EnumGestionInterfaces.Reservation);
+                    ActiverDesactiverControlesReservations(false);
+                    MessageBox.Show("Enregistré !");
                 }
-                MessageBox.Show("Enregistré !");
-
-                LoadReservations();
-                ActiverDesactiverControlesReservations(false);
+                else
+                {
+                    MessageBox.Show("Enregistrement échoué.");
+                }
             }
             catch (Exception ex)
             {
@@ -938,7 +885,8 @@ namespace WpfAppCesi
         {
             try
             {
-                LoadDatas();
+                //temp
+                //LoadDatas();
             }
             catch (Exception ex)
             {
