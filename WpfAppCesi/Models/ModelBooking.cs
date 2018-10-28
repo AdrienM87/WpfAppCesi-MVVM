@@ -169,7 +169,7 @@ namespace WpfAppCesi
         }
         #endregion
 
-        #region Méthodes Clients
+        #region Méthodes Chambres
         public bool SupprimerChambre(ChambresSet chambre)
         {
             try
@@ -246,7 +246,7 @@ namespace WpfAppCesi
         }
         #endregion
 
-        #region Méthodes Clients
+        #region Méthodes Réservations
         public bool SupprimerReservation(ReservationSet reservation)
         {
             try
