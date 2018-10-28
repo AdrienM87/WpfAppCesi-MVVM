@@ -9,22 +9,30 @@
     [Table("ReservationSet")]
     public partial class ReservationSet
     {
-        public int Id { get; set; }
+        private int id;
+        private DateTime dateDebut;
+        private DateTime dateFin;
+        private int keyClient;
+        private ClientsSet client;
+        private int keyChambre;
+        private ChambresSet chambres;
+
+        public int Id { get => id; set => id = value; }
 
         [Required]
-        public DateTime dateDebut { get; set; }
+        public DateTime DateDebut { get => dateDebut; set => dateDebut = value; }
 
         [Required]
-        public DateTime dateFin { get; set; }
+        public DateTime DateFin { get => dateFin; set => dateFin = value; }
 
         //foreign key
-        public int keyClient { get; set; }
+        public int KeyClient { get => keyClient; set => keyClient = value; }
 
-        public ClientsSet Client { get; set; }
+        public ClientsSet Client { get => client; set => client = value; }
 
         //foreign key
-        public int keyChambre { get; set; }
+        public int KeyChambre { get => keyChambre; set => keyChambre = value; }
 
-        public ChambresSet Chambres { get; set; }
+        public ChambresSet Chambres { get => chambres; set => chambres = value; }
     }
 }

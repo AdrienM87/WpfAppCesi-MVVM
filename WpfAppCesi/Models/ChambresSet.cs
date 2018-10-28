@@ -9,20 +9,32 @@ namespace WpfAppCesi
     [Table("ChambresSet")]
     public partial class ChambresSet
     {
-        public int Id { get; set; }
+        #region Attributs privés
+        private int id;
+        private string nom;
+        private bool climatisation;
+        private int nbLits;
+        private int keyHotel;
+        private HotelsSet hotel;
+        private ICollection<ReservationSet> reservationsSet;
+        #endregion
+
+        #region Propriétés
+        public int Id { get => id; set => id = value; }
 
         [Required]
-        public string Nom { get; set; }
+        public string Nom { get => nom; set => nom = value; }
 
-        public bool Climatisation { get; set; }
+        public bool Climatisation { get => climatisation; set => climatisation = value; }
 
-        public int NbLits { get; set; }
+        public int NbLits { get => nbLits; set => nbLits = value; }
 
         //Foreign key
-        public int keyHotel { get; set; }
+        public int KeyHotel { get => keyHotel; set => keyHotel = value; }
 
-        public HotelsSet Hotel { get; set; }
+        public HotelsSet Hotel { get => hotel; set => hotel = value; }
 
-        public virtual ICollection<ReservationSet> ReservationsSet { get; set; }
+        public virtual ICollection<ReservationSet> ReservationsSet { get => reservationsSet; set => reservationsSet = value; }
+        #endregion
     }
 }

@@ -835,10 +835,10 @@ namespace WpfAppCesi
                         isNewReservation = true;
                         reservation = new ReservationSet();
                     }
-                    reservation.dateDebut = (DateTime)this.DtDebutReservation.SelectedDate;
-                    reservation.dateFin = (DateTime)this.DtFinReservation.SelectedDate;
-                    reservation.keyClient = Convert.ToInt32(this.CbClient.SelectedValue);
-                    reservation.keyChambre = Convert.ToInt32(this.CbChambres.SelectedValue);
+                    reservation.DateDebut = (DateTime)this.DtDebutReservation.SelectedDate;
+                    reservation.DateFin = (DateTime)this.DtFinReservation.SelectedDate;
+                    reservation.KeyClient = Convert.ToInt32(this.CbClient.SelectedValue);
+                    reservation.KeyChambre = Convert.ToInt32(this.CbChambres.SelectedValue);
 
                     if (isNewReservation)
                     {
@@ -962,15 +962,15 @@ namespace WpfAppCesi
                 this.BtSupprimerReservation.IsEnabled = true;
 
                 this.LbIdReservation.Content = reservation.Id.ToString();
-                this.DtDebutReservation.SelectedDate = reservation.dateDebut;
-                this.DtFinReservation.SelectedDate = reservation.dateFin;
-                this.CbClient.SelectedItem = reservation.keyClient;
-                this.CbChambres.SelectedItem = reservation.keyChambre;
+                this.DtDebutReservation.SelectedDate = reservation.DateDebut;
+                this.DtFinReservation.SelectedDate = reservation.DateFin;
+                this.CbClient.SelectedItem = reservation.KeyClient;
+                this.CbChambres.SelectedItem = reservation.KeyChambre;
 
                 using (var db = new ModelBooking())
                 {
                     var resultQuery = (from chambre in db.ChambresSet
-                                       where chambre.Id == reservation.keyChambre
+                                       where chambre.Id == reservation.KeyChambre
                                        select chambre.KeyHotel);
 
                     if (resultQuery.Any())

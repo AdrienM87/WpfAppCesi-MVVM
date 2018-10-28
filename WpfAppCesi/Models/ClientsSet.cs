@@ -9,17 +9,27 @@ namespace WpfAppCesi
     [Table("ClientsSet")]
     public partial class ClientsSet
     {
-        public int Id { get; set; }
+        #region Attributs privés
+        private int id;
+        private string prenom;
+        private string nom;
+        private DateTime dateNaissance;
+        private ICollection<ReservationSet> reservationsSet;
+        #endregion
+
+        #region Propriétés
+        public int Id { get => id; set => id = value; }
 
         [Required]
-        public string Prenom { get; set; }
+        public string Prenom { get => prenom; set => prenom = value; }
 
         [Required]
-        public string Nom { get; set; }
+        public string Nom { get => nom; set => nom = value; }
 
         [Required]
-        public DateTime DateNaissance { get; set; }
+        public DateTime DateNaissance { get => dateNaissance; set => dateNaissance = value; }
 
-        public virtual ICollection<ReservationSet> ReservationsSet { get; set; }
+        public virtual ICollection<ReservationSet> ReservationsSet { get => reservationsSet; set => reservationsSet = value; }
+        #endregion
     }
 }
