@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfAppCesi.ViewModel;
 
 //TODO : appliquer MVVM
 /*
@@ -223,7 +224,7 @@ namespace WpfAppCesi
                 {
                     return;
                 }
-                bool result = ((HotelsSet)this.HotelsDataGrid.SelectedItem).SupprimerHotel();
+                bool result = new HotelsViewModel().VMsupprimerHotel((HotelsSet)this.HotelsDataGrid.SelectedItem);
                 if (result)
                 {
                     LoadHotels();
@@ -251,7 +252,7 @@ namespace WpfAppCesi
                     idHotel = Convert.ToInt32(this.LbIdHotel.Content);
                 }
 
-                bool result = new HotelsSet().ValiderHotel(
+                bool result = new HotelsViewModel().VMvaliderHotel(
 
                                 idHotel,
                                 this.TbNomHotel.Text,
@@ -376,30 +377,20 @@ namespace WpfAppCesi
             {
                 this.BtSupprimerChambre.IsEnabled = false;
 
-                int idChambre;
                 if (this.ChambresDataGrid.SelectedItem == null)
                 {
                     return;
                 }
-                else
-                {
-                    idChambre = Convert.ToInt32(((ChambresSet)this.ChambresDataGrid.SelectedItem).Id);
-                }
-
-                using (var db = new ModelBooking())
-                {
-                    var resultQuery = (from chambres in db.ChambresSet
-                                       where chambres.Id == idChambre
-                                       select chambres);
-
-                    if (resultQuery.Any())
-                    {
-                        db.ChambresSet.Remove(resultQuery.First());
-                        db.SaveChanges();
-                    }
-                }
-                MessageBox.Show("Suppression effectuée !");
-                LoadChambres();
+                //bool result = ((HotelsSet)this.ChambresDataGrid.SelectedItem).SupprimerHotel();
+                //if (result)
+                //{
+                //    LoadHotels();
+                //    MessageBox.Show("Suppression effectuée !");
+                //}
+                //else
+                //{
+                //    MessageBox.Show("Erreur de suppression.");
+                //}
             }
             catch (Exception ex)
             {
@@ -448,7 +439,7 @@ namespace WpfAppCesi
                     chambre.Nom = this.TbNomChambre.Text;
                     chambre.Climatisation = (bool)this.RdHasClimO.IsChecked;
                     chambre.NbLits = Convert.ToInt32(this.TbNbLits.Text);
-                    chambre.keyHotel = Convert.ToInt32(this.CbHotels_TabChambres.SelectedValue);
+                    chambre.KeyHotel = Convert.ToInt32(this.CbHotels_TabChambres.SelectedValue);
 
                     if (isNewChambre)
                     {
@@ -517,7 +508,7 @@ namespace WpfAppCesi
                 this.TbNomChambre.Text = chambre.Nom;
                 this.TbNbLits.Text = chambre.NbLits.ToString();
                 this.RdHasClimO.IsChecked = chambre.Climatisation;
-                this.CbHotels_TabChambres.SelectedItem = chambre.keyHotel;
+                this.CbHotels_TabChambres.SelectedItem = chambre.KeyHotel;
 
                 ActiverDesactiverControlesChambres(true);
             }
@@ -598,32 +589,22 @@ namespace WpfAppCesi
         {
             try
             {
-                this.BtSupprimerClient.IsEnabled = false;
+                this.BtSupprimerHotel.IsEnabled = false;
 
-                int idClient;
-                if (this.ClientsDataGrid.SelectedItem == null)
+                if (this.HotelsDataGrid.SelectedItem == null)
                 {
                     return;
                 }
-                else
-                {
-                    idClient = Convert.ToInt32(((ClientsSet)this.ClientsDataGrid.SelectedItem).Id);
-                }
-
-                using (var db = new ModelBooking())
-                {
-                    var resultQuery = (from client in db.ClientsSet
-                                       where client.Id == idClient
-                                       select client);
-
-                    if (resultQuery.Any())
-                    {
-                        db.ClientsSet.Remove(resultQuery.First());
-                        db.SaveChanges();
-                    }
-                }
-                MessageBox.Show("Suppression effectuée !");
-                LoadClients();
+                //bool result = ((HotelsSet)this.HotelsDataGrid.SelectedItem).SupprimerHotel();
+                //if (result)
+                //{
+                //    LoadHotels();
+                //    MessageBox.Show("Suppression effectuée !");
+                //}
+                //else
+                //{
+                //    MessageBox.Show("Erreur de suppression.");
+                //}
             }
             catch (Exception ex)
             {
@@ -791,32 +772,22 @@ namespace WpfAppCesi
         {
             try
             {
-                this.BtSupprimerReservation.IsEnabled = false;
+                this.BtSupprimerHotel.IsEnabled = false;
 
-                int idReservation;
-                if (this.ReservationDataGrid.SelectedItem == null)
+                if (this.HotelsDataGrid.SelectedItem == null)
                 {
                     return;
                 }
-                else
-                {
-                    idReservation = Convert.ToInt32(((ReservationSet)this.ReservationDataGrid.SelectedItem).Id);
-                }
-
-                using (var db = new ModelBooking())
-                {
-                    var resultQuery = (from reservation in db.ReservationsSet
-                                       where reservation.Id == idReservation
-                                       select reservation);
-
-                    if (resultQuery.Any())
-                    {
-                        db.ReservationsSet.Remove(resultQuery.First());
-                        db.SaveChanges();
-                    }
-                }
-                MessageBox.Show("Suppression effectuée !");
-                LoadReservations();
+                //bool result = ((HotelsSet)this.HotelsDataGrid.SelectedItem).SupprimerHotel();
+                //if (result)
+                //{
+                //    LoadHotels();
+                //    MessageBox.Show("Suppression effectuée !");
+                //}
+                //else
+                //{
+                //    MessageBox.Show("Erreur de suppression.");
+                //}
             }
             catch (Exception ex)
             {
@@ -1000,7 +971,7 @@ namespace WpfAppCesi
                 {
                     var resultQuery = (from chambre in db.ChambresSet
                                        where chambre.Id == reservation.keyChambre
-                                       select chambre.keyHotel);
+                                       select chambre.KeyHotel);
 
                     if (resultQuery.Any())
                     {

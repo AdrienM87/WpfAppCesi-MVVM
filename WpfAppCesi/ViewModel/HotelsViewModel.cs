@@ -12,6 +12,9 @@ namespace WpfAppCesi.ViewModel
 {
     public class HotelsViewModel : INotifyPropertyChanged
     {
+        //temp constructeur
+        public HotelsViewModel() { }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void NotifyPropertyChanged([CallerMemberName] string str = "")
@@ -70,5 +73,36 @@ namespace WpfAppCesi.ViewModel
             hotel.Localisation = "";
             hotel.Pays = "";
         });
+        //¤ les boutons ajouts ne sont pas fonctionnels (Icommand)
+
+        public bool VMsupprimerHotel(HotelsSet hotel)
+        {
+            try
+            {
+                using (var db = new ModelBooking())
+                {
+                    return db.SupprimerHotel(hotel);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public bool VMvaliderHotel(int idHotel, string nom, int capacite, string localisation, string pays)
+        {
+            try
+            {
+                using (var db = new ModelBooking())
+                {
+                    return db.ValiderHotel(idHotel, nom, capacite, localisation, pays);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
     }
 }
