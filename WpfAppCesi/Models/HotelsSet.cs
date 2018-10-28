@@ -62,27 +62,24 @@ namespace WpfAppCesi
             catch (Exception ex)
             {
                 throw;
-            }            
+            }
         }
 
-        public HotelsSet GetHotel(int idHotel)
+        public HotelsSet GetHotel(int idHotel, ModelBooking db)
         {
             try
             {
-                using (var db = new ModelBooking())
-                {
-                    var resultQuery = (from hotels in db.HotelsSet
-                                       where hotels.Id == idHotel
-                                       select hotels);
+                var resultQuery = (from hotels in db.HotelsSet
+                                   where hotels.Id == idHotel
+                                   select hotels);
 
-                    if (resultQuery.Any())
-                    {
-                        return resultQuery.First();
-                    }
-                    else
-                    {
-                        return null;
-                    }
+                if (resultQuery.Any())
+                {
+                    return resultQuery.First();
+                }
+                else
+                {
+                    return null;
                 }
             }
             catch (Exception ex)
@@ -95,19 +92,20 @@ namespace WpfAppCesi
         {
             try
             {
-                HotelsSet hotel;
-
-                if (idHotel != 0) //si id!=0 alors l'hotel existe déjà
-                {
-                    hotel = GetHotel(idHotel);
-                }
-                else
-                {
-                    hotel = new HotelsSet();
-                }
-
                 using (var db = new ModelBooking())
-                {                        
+                {
+                    HotelsSet hotel;
+
+                    if (idHotel != 0) //si id!=0 alors l'hotel existe déjà
+                    {
+                        hotel = GetHotel(idHotel, db);
+                    }
+                    else
+                    {
+                        hotel = new HotelsSet();
+                    }
+
+
                     hotel.Nom = nom;
                     hotel.Capacite = capacite;
                     hotel.Localisation = localisation;
