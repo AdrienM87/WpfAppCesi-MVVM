@@ -40,5 +40,20 @@ namespace WpfAppCesi.ViewModel
                 throw;
             }
         }
+
+        public HashSet<ChambresSet> VMgetChambres()
+        {
+            try
+            {
+                using (var db = new ModelBooking())
+                {
+                    return db.GetAllChambres();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

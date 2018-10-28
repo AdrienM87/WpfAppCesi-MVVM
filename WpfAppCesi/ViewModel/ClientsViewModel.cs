@@ -40,5 +40,20 @@ namespace WpfAppCesi.ViewModel
                 throw;
             }
         }
+
+        public HashSet<ClientsSet> VMgetClients()
+        {
+            try
+            {
+                using (var db = new ModelBooking())
+                {
+                    return db.GetAllClients();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

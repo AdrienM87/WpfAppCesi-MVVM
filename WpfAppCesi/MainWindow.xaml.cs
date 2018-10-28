@@ -48,30 +48,14 @@ namespace WpfAppCesi
             LoadDatas();
         }
 
-        #region Loads des datas
-
         private void LoadDatas()
         {
-            LoadHotels();
-            LoadChambres();
-            LoadClients();
-            LoadReservations();
-        }
-
-        private void LoadHotels()
-        {
             try
             {
-                using (var db = new ModelBooking())
-                {
-                    var resultQuery = (from hotels in db.HotelsSet select hotels);
-
-                    if (resultQuery.Any())
-                    {
-                        HashSet<HotelsSet> SetHotels = resultQuery.ToHashSet();
-                        this.HotelsDataGrid.ItemsSource = SetHotels;
-                    }
-                }
+                this.HotelsDataGrid.ItemsSource = new HotelsViewModel().VMgetHotels();
+                this.ChambresDataGrid.ItemsSource = new ChambresViewModel().VMgetChambres();
+                this.ClientsDataGrid.ItemsSource = new ClientsViewModel().VMgetClients();
+                this.ReservationDataGrid.ItemsSource = new ReservationsViewModel().VMgetReservations();
             }
             catch (Exception ex)
             {
@@ -79,85 +63,6 @@ namespace WpfAppCesi
             }
         }
 
-        private void LoadChambres()
-        {
-            try
-            {
-                using (var db = new ModelBooking())
-                {
-                    var resultQuery = (from chambres in db.ChambresSet select chambres);
-
-                    if (resultQuery.Any())
-                    {
-                        HashSet<ChambresSet> SetChambres = resultQuery.ToHashSet();
-                        this.ChambresDataGrid.ItemsSource = SetChambres;
-
-                        //DataTable data = new DataTable();
-                        //data.Columns.Add("N° chambre");
-                        //data.Columns.Add("Nom de la chambre");
-                        //data.Columns.Add("Climatisation");
-                        //data.Columns.Add("Nombre de lits");
-                        //data.Columns.Add("N° hotel de la chambre");
-
-                        //foreach (ChambresSet ch in SetChambres)
-                        //{
-                        //    data.Rows.Add(new object[] { ch.Id, ch.Nom, ch.Climatisation, ch.NbLits, ch.keyHotel });
-                        //}
-
-                        //this.ChambresDataGrid.ItemsSource = (System.Collections.IEnumerable)data;
-                        
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
-
-        private void LoadClients()
-        {
-            try
-            {
-                using (var db = new ModelBooking())
-                {
-                    var resultQuery = (from clients in db.ClientsSet select clients);
-
-                    if (resultQuery.Any())
-                    {
-                        HashSet<ClientsSet> SetClients = resultQuery.ToHashSet();
-                        this.ClientsDataGrid.ItemsSource = SetClients;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
-
-        private void LoadReservations()
-        {
-            try
-            {
-                using (var db = new ModelBooking())
-                {
-                    var resultQuery = (from reservations in db.ReservationsSet select reservations);
-
-                    if (resultQuery.Any())
-                    {
-                        HashSet<ReservationSet> SetReservations = resultQuery.ToHashSet();
-                        this.ReservationDataGrid.ItemsSource = SetReservations;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
-
-        #endregion
 
         #region Gestion des hotels
 

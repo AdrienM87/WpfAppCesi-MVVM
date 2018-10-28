@@ -104,5 +104,20 @@ namespace WpfAppCesi.ViewModel
                 throw;
             }
         }
+
+        public HashSet<HotelsSet> VMgetHotels()
+        {
+            try
+            {
+                using (var db = new ModelBooking())
+                {
+                    return db.GetAllHotels();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
