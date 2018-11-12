@@ -97,9 +97,7 @@
       <DependentUpon>201810260643219_renommageClefsEtrangères.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\ChambresSet.cs" />
-    <Compile Include="ClassMain.cs" />
     <Compile Include="Models\ReservationSet.cs" />
-    <Compile Include="Process.cs" />
     <Compile Include="Models\HotelsSet.cs" />
     <Compile Include="Migrations\201810251213211_ajoutLocalisation.cs" />
     <Compile Include="Migrations\201810251213211_ajoutLocalisation.Designer.cs">

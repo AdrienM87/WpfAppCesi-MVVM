@@ -45,7 +45,7 @@ namespace WpfAppCesi
         public MainWindow()
         {
             InitializeComponent();
-            LoadDatas(EnumGestionInterfaces.Hotel);
+            //LoadDatas(EnumGestionInterfaces.Hotel);
             LoadDatas(EnumGestionInterfaces.Chambre);
             LoadDatas(EnumGestionInterfaces.Client);
             LoadDatas(EnumGestionInterfaces.Reservation);

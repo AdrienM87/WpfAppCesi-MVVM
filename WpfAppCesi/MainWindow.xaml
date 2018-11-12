@@ -24,24 +24,50 @@
                         <ColumnDefinition Width="90*"/>
                         <ColumnDefinition Width="639*"/>
                     </Grid.ColumnDefinitions>
-                    
-                    <DataGrid x:Name="HotelsDataGrid" SelectionMode="Single" HorizontalAlignment="Left" Height="304" Margin="10,10,0,0" VerticalAlignment="Top" Width="579" Grid.ColumnSpan="5" SelectionChanged="HotelsDataGrid_SelectionChanged"/>
-                    <Button x:Name="BtAjouterHotel" Content="Ajouter hotel" HorizontalAlignment="Left" Margin="10,319,0,0" VerticalAlignment="Top" Width="98" Height="32" Grid.ColumnSpan="4" Click="BtAjouterHotel_Click"/>
-                    <Button x:Name="BtSupprimerHotel" IsEnabled="False" Content="Supprimer hotel" HorizontalAlignment="Left" Margin="86,319,0,0" VerticalAlignment="Top" Width="109" Height="32" Grid.Column="3" Click="BtSupprimerHotel_Click" Grid.ColumnSpan="2"/>
-                    <Button x:Name="BtValiderHotel" IsEnabled="False" Content="Valider" Grid.Column="4" HorizontalAlignment="Left" Margin="498,336,0,0" VerticalAlignment="Top" Width="57" Click="BtValiderHotel_Click"/>
+
+                    <DataGrid x:Name="HotelsDataGrid" SelectionMode="Single" HorizontalAlignment="Left" Height="304" Margin="10,10,0,0" VerticalAlignment="Top" Width="579" Grid.ColumnSpan="5" AutoGenerateColumns="False" ItemsSource="{Binding HotelsCollection}" SelectedItem="{Binding HotelSelected}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Id" Binding="{Binding HotelsCollection.Id}" Width="*"/>
+                            <DataGridTextColumn Header="Nom" Binding="{Binding Path=HotelSelected.Nom, Mode=TwoWay}" Width="*"/>
+                            <DataGridTextColumn Header="Capacite" Binding="{Binding HotelsCollection.Capacite}" Width="*"/>
+                            <DataGridTextColumn  Header="Localisation" Binding="{Binding HotelsCollection.Localisation}" Width="*"/>
+                            <DataGridTextColumn  Header="Pays" Binding="{Binding HotelsCollection.Pays}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <!--<Button x:Name="BtAjouterHotel" Content="Ajouter hotel" HorizontalAlignment="Left" Margin="10,319,0,0" VerticalAlignment="Top" Width="98" Height="32" Grid.ColumnSpan="4" Click="BtAjouterHotel_Click"/>-->
+                    <Button x:Name="BtAjouterHotel" Content="Ajouter hotel" HorizontalAlignment="Left" Margin="10,319,0,0" VerticalAlignment="Top" Width="98" Height="32" Grid.ColumnSpan="4" Command="{Binding BtAjouterHotel_Click}"/>
+                    <Button x:Name="BtSupprimerHotel" Content="Supprimer hotel" HorizontalAlignment="Left" Margin="86,319,0,0" VerticalAlignment="Top" Width="109" Height="32" Grid.Column="3" Grid.ColumnSpan="2" Command="{Binding BtSupprimerHotel_Click}" CommandParameter="{Binding Path=HotelSelected}"/>
+                    <!--<Button x:Name="BtValiderHotel"  Content="Valider" Grid.Column="4" HorizontalAlignment="Left" Margin="498,336,0,0" VerticalAlignment="Top" Width="57" Command="{Binding BtValiderHotel_Click}" CommandParameter="{Binding Path=HotelSelected}"/>-->
+                    <Button x:Name="BtValiderHotel" Content="Valider" Grid.Column="4" HorizontalAlignment="Left" Margin="498,336,0,0" VerticalAlignment="Top" Width="57" Command="{Binding BtValiderHotel_Click}" CommandParameter="{Binding SelectedItem, ElementName=listHotels}"/>
 
                     <Label x:Name="LbN_TabHotels" Content="N°" HorizontalAlignment="Left" Margin="477.407,10,0,0" VerticalAlignment="Top" Grid.Column="4"/>
-                    <Label x:Name="LbIdHotel" Content="" HorizontalAlignment="Left" Margin="520.407,10,0,0" VerticalAlignment="Top" Grid.Column="4"/>
+                    <Label x:Name="LbIdHotel" Content="{Binding Path=HotelSelected.Id}" HorizontalAlignment="Left" Margin="520.407,10,0,0" VerticalAlignment="Top" Grid.Column="4"/>
                     <Label x:Name="LbNomHotel" Content="Nom de l'hotel :" HorizontalAlignment="Left" Margin="477.407,51,0,0" VerticalAlignment="Top" Grid.Column="4"/>
                     <Label x:Name="LbCapacite" Content="Capacité :" HorizontalAlignment="Left" Margin="477.407,120,0,0" VerticalAlignment="Top" Grid.Column="4"/>
                     <Label x:Name="LbLocalisation" Content="Localisation :" HorizontalAlignment="Left" Margin="477.407,193,0,0" VerticalAlignment="Top" Grid.Column="4"/>
                     <Label x:Name="LbPays" Content="Pays :" HorizontalAlignment="Left" Margin="477.407,264,0,0" VerticalAlignment="Top" Grid.Column="4"/>
 
-                    <TextBox x:Name="TbNomHotel" IsEnabled="False" HorizontalAlignment="Left" Height="23" Margin="477.407,77,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.481,1.49" Grid.Column="4"/>
-                    <TextBox x:Name="TbCapacite" IsEnabled="False" HorizontalAlignment="Left" Height="23" Margin="485.407,146,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="77" RenderTransformOrigin="0.481,1.49" Grid.Column="4"/>
-                    <TextBox x:Name="TbLocalisation" IsEnabled="False" HorizontalAlignment="Left" Height="23" Margin="485.407,219,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="77" RenderTransformOrigin="0.481,1.49" Grid.Column="4"/>
-                    <TextBox x:Name="TbPays" IsEnabled="False" HorizontalAlignment="Left" Height="23" Margin="485.407,290,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="77" RenderTransformOrigin="0.481,1.49" Grid.Column="4"/>
-                    <Button Content="Command" Grid.Column="4" HorizontalAlignment="Left" Margin="176,411,0,0" VerticalAlignment="Top" Width="75" Command="{Binding RazPageHotel}" CommandParameter="{Binding HotelSelected}"/>
+                    <TextBox x:Name="TbNomHotel" HorizontalAlignment="Left" Height="23" Margin="477.407,77,0,0" TextWrapping="Wrap" Text="{Binding Path=HotelSelected.Nom, Mode=TwoWay}" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.481,1.49" Grid.Column="4"/>
+                    <TextBox x:Name="TbCapacite" HorizontalAlignment="Left" Height="23" Margin="485.407,146,0,0" TextWrapping="Wrap" Text="{Binding Path=HotelSelected.Capacite, Mode=TwoWay}" VerticalAlignment="Top" Width="77" RenderTransformOrigin="0.481,1.49" Grid.Column="4"/>
+                    <TextBox x:Name="TbLocalisation" HorizontalAlignment="Left" Height="23" Margin="485.407,219,0,0" TextWrapping="Wrap" Text="{Binding Path=HotelSelected.Localisation, Mode=TwoWay}" VerticalAlignment="Top" Width="77" RenderTransformOrigin="0.481,1.49" Grid.Column="4"/>
+                    <TextBox x:Name="TbPays" HorizontalAlignment="Left" Height="23" Margin="485.407,290,0,0" TextWrapping="Wrap" Text="{Binding Path=HotelSelected.Pays, Mode=TwoWay}" VerticalAlignment="Top" Width="77" RenderTransformOrigin="0.481,1.49" Grid.Column="4"/>
+
+                    <Label x:Name="LbComboNom" Content="Hotel à sélectionner :" Grid.Column="4" HorizontalAlignment="Left" Margin="149,350,0,0" VerticalAlignment="Top"/>
+                    <ListBox x:Name="listHotels" HorizontalAlignment="Left" Height="147" VerticalAlignment="Top" Width="448" Margin="149,381,0,0" Grid.Column="4" ItemsSource="{Binding HotelsCollection}" SelectedItem="{Binding HotelSelected}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="- "></Label>
+                                    <Label Content="{Binding Id}"></Label>
+                                    <Label Content="{Binding Nom}"></Label>
+                                    <Label Content="{Binding Capacite}"></Label>
+                                    <Label Content="{Binding Localisation}"></Label>
+                                    <Label Content="{Binding Pays}"></Label>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <!--<Button Content="Command" Grid.Column="4" HorizontalAlignment="Left" Margin="176,411,0,0" VerticalAlignment="Top" Width="75" Command="{Binding RazPageHotel}" CommandParameter="{Binding HotelSelected}"/>-->
                 </Grid>
             </TabItem>
             <TabItem Header="Chambre">
@@ -53,7 +79,7 @@
                         <ColumnDefinition Width="77*"/>
                         <ColumnDefinition Width="609*"/>
                     </Grid.ColumnDefinitions>
-                    
+
                     <DataGrid x:Name="ChambresDataGrid" SelectionMode="Single" HorizontalAlignment="Left" Height="304" Margin="10,10,0,0" VerticalAlignment="Top" Width="579" Grid.ColumnSpan="5" SelectionChanged="ChambresDataGrid_SelectionChanged"/>
                     <Button x:Name="BtAjouterChambre" Content="Ajouter chambre" HorizontalAlignment="Left" Margin="0,320,0,0" VerticalAlignment="Top" Width="103" Height="27" Click="BtAjouterChambre_Click" Grid.ColumnSpan="3" Grid.Column="1"/>
                     <Button x:Name="BtSupprimerChambre" IsEnabled="False" Content="Supprimer chambre" HorizontalAlignment="Left" Margin="39,319,0,0" VerticalAlignment="Top" Width="113" Height="27" Click="BtSupprimerChambre_Click" Grid.Column="3" Grid.ColumnSpan="2"/>
@@ -84,7 +110,7 @@
                         <ColumnDefinition Width="77*"/>
                         <ColumnDefinition Width="609*"/>
                     </Grid.ColumnDefinitions>
-                    
+
                     <DataGrid x:Name="ClientsDataGrid" SelectionMode="Single" HorizontalAlignment="Left" Height="304" Margin="10,10,0,0" VerticalAlignment="Top" Width="579" Grid.ColumnSpan="5" SelectionChanged="ClientsDataGrid_SelectionChanged"/>
                     <Button x:Name="BtAjouterClient" Content="Ajouter client" HorizontalAlignment="Left" Margin="0,320,0,0" VerticalAlignment="Top" Width="103" Height="27" Grid.ColumnSpan="3" Grid.Column="1" Click="BtAjouterClient_Click"/>
                     <Button x:Name="BtSupprimerClient" IsEnabled="False" Content="Supprimer client" HorizontalAlignment="Left" Margin="39,319,0,0" VerticalAlignment="Top" Width="113" Height="27"  Grid.Column="3" Grid.ColumnSpan="2" Click="BtSupprimerClient_Click"/>
@@ -109,7 +135,7 @@
                         <ColumnDefinition Width="9*"/>
                         <ColumnDefinition Width="367*"/>
                     </Grid.ColumnDefinitions>
-                    
+
                     <DataGrid x:Name="ReservationDataGrid" SelectionMode="Single" HorizontalAlignment="Left" Height="304" Margin="10,10,0,0" VerticalAlignment="Top" Width="579" Grid.ColumnSpan="3" SelectionChanged="ReservationDataGrid_SelectionChanged"/>
                     <Button x:Name="BtNouveauClient" Content="Nouveau client" HorizontalAlignment="Left" Margin="197,515,0,0" VerticalAlignment="Top" Width="120" Height="24" Grid.Column="2" Click="BtNouveauClient_Click"/>
                     <Button x:Name="BtValiderReservation" IsEnabled="False" Content="Valider la réservation" HorizontalAlignment="Left" Margin="550,502,0,0" VerticalAlignment="Top" Width="143" Height="37" Grid.Column="2" Click="BtValiderReservation_Click"/>
