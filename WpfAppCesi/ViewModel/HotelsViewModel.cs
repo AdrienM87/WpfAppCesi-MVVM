@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace WpfAppCesi.ViewModel
@@ -25,14 +28,14 @@ namespace WpfAppCesi.ViewModel
         }
         #endregion
 
-        #region Constructeur
+        #region Constructor
         public HotelsViewModel()
         {
-            HotelsCollection = VMgetHotels();
+            HotelsCollection = getAllHotels();
         }
         #endregion
 
-
+        #region Properties
         private ObservableCollection<HotelsSet> hotelsCollection;
         public ObservableCollection<HotelsSet> HotelsCollection
         {
@@ -52,19 +55,20 @@ namespace WpfAppCesi.ViewModel
             }
         }
 
-        //todo verifier utilité
-        private List<HotelsSet> lesHotels;
-        public List<HotelsSet> LesHotels
+        public ObservableCollection<HotelsSet> getAllHotels()
         {
-            get
+            try
             {
-                return lesHotels;
-            }
+                using (var db = new ModelBooking())
+                {
+                    HashSet<HotelsSet> hotelHashSet = db.GetAllHotels();
 
-            set
+                    return new ObservableCollection<HotelsSet>(hotelHashSet);
+                }
+            }
+            catch (Exception ex)
             {
-                lesHotels = value;
-                NotifyPropertyChanged();
+                throw new Exception(ex.Message);
             }
         }
 
@@ -81,73 +85,7 @@ namespace WpfAppCesi.ViewModel
                 }
             }
         }
-
-        //todo verifier l'utilité
-        public void HotelSelectedViewModel()
-        {
-            //temp really?
-            //HotelsCollection = new HashSet<HotelsSet>();
-
-            //HotelSelected = new HotelsSet()
-            //{
-            //    Nom = "Bristol",
-            //    Capacite = 5,
-            //    Localisation = "Paris",
-            //    Pays = "FR"
-            //};
-
-            //HotelsCollection.Add(HotelSelected);
-        }
-
-
-
-        //todo supprimer à la fin
-        public bool VMsupprimerHotel(HotelsSet hotel)
-        {
-            try
-            {
-                using (var db = new ModelBooking())
-                {
-                    return db.SupprimerHotel(hotel);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-        }
-
-        public bool VMvaliderHotel(int idHotel, string nom, int capacite, string localisation, string pays)
-        {
-            try
-            {
-                using (var db = new ModelBooking())
-                {
-                    return db.ValiderHotel(idHotel, nom, capacite, localisation, pays);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-        }
-
-        public ObservableCollection<HotelsSet> VMgetHotels()
-        {
-            try
-            {
-                using (var db = new ModelBooking())
-                {
-                    HashSet<HotelsSet> hotelHashSet = db.GetAllHotels();
-
-                    return new ObservableCollection<HotelsSet> (hotelHashSet);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
+        #endregion
 
         #region Commands
 
@@ -187,8 +125,51 @@ namespace WpfAppCesi.ViewModel
                         }
                     });
 
-        }
+                }
                 return btModifierHotel_Click;
+            }
+        }
+
+        private ICommand btAjouterHotel_Click;
+        public ICommand BtAjouterHotel_Click
+        {
+            get
+            {
+                if (btAjouterHotel_Click == null)
+                {
+                    btAjouterHotel_Click = new RelayCommand<string>((obj) =>
+                    {
+                        try
+                        {
+                            if (obj != null)
+                            {
+                                HotelsSet h = new HotelsSet();
+                                h.Id = 0;
+                                h.Nom = obj;
+                                h.Capacite = 0;
+                                h.Localisation = "";
+                                h.Pays = "";
+
+                                using (var db = new ModelBooking())
+                                {
+                                    db.ValiderHotel(h.Id, h.Nom, h.Capacite, h.Localisation, h.Pays);
+                                }
+                                HotelsCollection.Add(h);
+                            }
+                            else
+                            {
+                                return;
+                            }
+
+                        }
+                        catch (Exception ex)
+                        {
+                            throw;
+                        }
+                    });
+
+                }
+                return btAjouterHotel_Click;
             }
         }
 
@@ -236,6 +217,22 @@ namespace WpfAppCesi.ViewModel
 
         #endregion
 
-        
+        #region Value Conversion
+        //Partie non terminée : essai pour récupérer de multiples champs depuis la vue
+        [ValueConversion(typeof(string), typeof(String))]
+        public class MyConverter : IValueConverter
+        {
+            public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+            {
+                return string.Format("{0}:{1}", (string)value, (string)parameter);
+            }
+
+            public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+            {
+
+                return DependencyProperty.UnsetValue;
+            }
+        }
+        #endregion
     }
 }

@@ -24,10 +24,8 @@
                         <ColumnDefinition Width="90*"/>
                         <ColumnDefinition Width="639*"/>
                     </Grid.ColumnDefinitions>
-                    <!--<Button x:Name="BtAjouterHotel" Content="Ajouter hotel" HorizontalAlignment="Left" Margin="10,319,0,0" VerticalAlignment="Top" Width="98" Height="32" Grid.ColumnSpan="4" Click="BtAjouterHotel_Click"/>-->
-                    <Button x:Name="BtAjouterHotel" Content="Ajouter hotel" HorizontalAlignment="Left" Margin="418,336,0,0" VerticalAlignment="Top" Width="98" Height="32" Command="{Binding BtAjouterHotel_Click}" Grid.Column="4" RenderTransformOrigin="0.801,0.568"/>
+                    <Button x:Name="BtAjouterHotel" Content="Ajouter hotel" HorizontalAlignment="Left" Margin="418,336,0,0" VerticalAlignment="Top" Width="98" Height="32" Command="{Binding BtAjouterHotel_Click}" CommandParameter="{Binding Text, ElementName=TbNomHotel}" Grid.Column="4" RenderTransformOrigin="0.801,0.568"/>
                     <Button x:Name="BtSupprimerHotel" Content="Supprimer hotel" HorizontalAlignment="Left" Margin="0,336,0,0" VerticalAlignment="Top" Width="109" Height="32" Grid.Column="2" Grid.ColumnSpan="3" Command="{Binding BtSupprimerHotel_Click}" CommandParameter="{Binding Path=HotelSelected}" RenderTransformOrigin="0.424,0.681"/>
-                    <!--<Button x:Name="BtValiderHotel"  Content="Valider" Grid.Column="4" HorizontalAlignment="Left" Margin="498,336,0,0" VerticalAlignment="Top" Width="57" Command="{Binding BtValiderHotel_Click}" CommandParameter="{Binding Path=HotelSelected}"/>-->
                     <Button x:Name="BtValiderHotel" Content="Valider" Grid.Column="4" HorizontalAlignment="Left" Margin="543,336,0,0" VerticalAlignment="Top" Width="86" Command="{Binding BtValiderHotel_Click}" CommandParameter="{Binding SelectedItem, ElementName=listHotels}" Height="32"/>
 
                     <Label x:Name="LbN_TabHotels" Content="N°" HorizontalAlignment="Left" Margin="477.407,10,0,0" VerticalAlignment="Top" Grid.Column="4"/>
@@ -57,10 +55,8 @@
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
-                    <!--<Button Content="Command" Grid.Column="4" HorizontalAlignment="Left" Margin="176,411,0,0" VerticalAlignment="Top" Width="75" Command="{Binding RazPageHotel}" CommandParameter="{Binding HotelSelected}"/>-->
                 </Grid>
             </TabItem>
         </TabControl>
-        <Button x:Name="BtQuitter" Content="Quitter" HorizontalAlignment="Left" Margin="702,623,0,0" VerticalAlignment="Top" Width="80" Click="BtQuitter_Click" Height="27"/>
     </Grid>
 </Window>
