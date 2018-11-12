@@ -12,7 +12,7 @@ using System.Runtime.CompilerServices;
 namespace WpfAppCesi
 {
     [Table("HotelsSet")]
-    public partial class HotelsSet
+    public partial class HotelsSet : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

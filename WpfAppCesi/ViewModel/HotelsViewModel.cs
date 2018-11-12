@@ -19,7 +19,8 @@ namespace WpfAppCesi.ViewModel
         {
             if (PropertyChanged != null)
             {
-                PropertyChanged(this, new PropertyChangedEventArgs(str));
+                //PropertyChanged(this, new PropertyChangedEventArgs(str));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(str));
             }
         }
         #endregion
@@ -32,13 +33,14 @@ namespace WpfAppCesi.ViewModel
         #endregion
 
 
-        private HashSet<HotelsSet> hotelsCollection;
-        public HashSet<HotelsSet> HotelsCollection
+        private ObservableCollection<HotelsSet> hotelsCollection;
+        public ObservableCollection<HotelsSet> HotelsCollection
         {
             //temp
             get
             {
-                return VMgetHotels();
+                //return VMgetHotels();
+                return hotelsCollection;
             }
             set
             {
@@ -84,22 +86,22 @@ namespace WpfAppCesi.ViewModel
         public void HotelSelectedViewModel()
         {
             //temp really?
-            HotelsCollection = new HashSet<HotelsSet>();
+            //HotelsCollection = new HashSet<HotelsSet>();
 
-            HotelSelected = new HotelsSet()
-            {
-                Nom = "Bristol",
-                Capacite = 5,
-                Localisation = "Paris",
-                Pays = "FR"
-            };
+            //HotelSelected = new HotelsSet()
+            //{
+            //    Nom = "Bristol",
+            //    Capacite = 5,
+            //    Localisation = "Paris",
+            //    Pays = "FR"
+            //};
 
-            HotelsCollection.Add(HotelSelected);
+            //HotelsCollection.Add(HotelSelected);
         }
 
 
 
-        //perso opérationnel
+        //todo supprimer à la fin
         public bool VMsupprimerHotel(HotelsSet hotel)
         {
             try
@@ -130,13 +132,15 @@ namespace WpfAppCesi.ViewModel
             }
         }
 
-        public HashSet<HotelsSet> VMgetHotels()
+        public ObservableCollection<HotelsSet> VMgetHotels()
         {
             try
             {
                 using (var db = new ModelBooking())
                 {
-                    return db.GetAllHotels();
+                    HashSet<HotelsSet> hotelHashSet = db.GetAllHotels();
+
+                    return new ObservableCollection<HotelsSet> (hotelHashSet);
                 }
             }
             catch (Exception ex)
@@ -145,17 +149,16 @@ namespace WpfAppCesi.ViewModel
             }
         }
 
-        //todo 
-        //public ICommand VMgetHotelSelected() = new RelayCommand<HotelsSet>((int idHotel)) => {
+        #region Commands
 
-        private ICommand btValiderHotel_Click;
-        public ICommand BtValiderHotel_Click
+        private ICommand btModifierHotel_Click;
+        public ICommand BtModifierHotel_Click
         {
             get
             {
-                if (btValiderHotel_Click == null)
+                if (btModifierHotel_Click == null)
                 {
-                    btValiderHotel_Click = new RelayCommand<HotelsSet>((obj) =>
+                    btModifierHotel_Click = new RelayCommand<HotelsSet>((obj) =>
                     {
                         try
                         {
@@ -185,82 +188,54 @@ namespace WpfAppCesi.ViewModel
                     });
 
         }
-                return btValiderHotel_Click;
+                return btModifierHotel_Click;
             }
         }
 
+        private ICommand btSupprimerHotel_Click;
+        public ICommand BtSupprimerHotel_Click
+        {
+            get
+            {
+                if (btSupprimerHotel_Click == null)
+                {
+                    btSupprimerHotel_Click = new RelayCommand<HotelsSet>((obj) =>
+                    {
+                        try
+                        {
+                            if (obj != null)
+                            {
+                                using (var db = new ModelBooking())
+                                {
+                                    db.SupprimerHotel(obj);
+                                }
 
+                                foreach (HotelsSet h in HotelsCollection)
+                                {
+                                    if (h.Id == obj.Id)
+                                    {
+                                        HotelsCollection.Remove(h);
+                                        break;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                return;
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            throw;
+                        }
+                    });
+                }
+                return btSupprimerHotel_Click;
+            }
+        }
 
-        //private ICommand hotelsDataGrid_SelectionChanged;
-        //public ICommand HotelsDataGrid_SelectionChanged
-        //{
-        //    get
-        //    {
-        //        hotelsDataGrid_SelectionChanged = new RelayCommand<HotelsSet>((obj) =>
-        //        {
-        //            if (obj != null)
-        //            {
-        //                HotelSelected.Id = obj.Id;
-        //                HotelSelected.Nom = obj.Nom;
-        //                HotelSelected.Capacite = obj.Capacite;
-        //                HotelSelected.Localisation = obj.Localisation;
-        //                HotelSelected.Pays = obj.Pays;
-        //            }
-        //        });
-        //        return hotelsDataGrid_SelectionChanged;
-        //    }
-        //}
+        #endregion
 
-        //{
-        //    get
-        //    {
-        //        try
-        //        {
-        //            if (MainWindow.HotelsDataGrid.SelectedItem == null)
-        //            {
-        //                return;
-        //            }
-        //            HotelsSet hotel = (HotelsSet)HotelsDataGrid.SelectedItem;
-        //            if (hotel == null)
-        //            {
-        //                return;
-        //            }
-
-        //            this.BtAjouterHotel.IsEnabled = true;
-        //            this.BtSupprimerHotel.IsEnabled = true;
-
-        //            this.LbIdHotel.Content = hotel.Id.ToString();
-        //            this.TbNomHotel.Text = hotel.Nom;
-        //            this.TbCapacite.Text = hotel.Capacite.ToString();
-        //            this.TbLocalisation.Text = hotel.Localisation;
-        //            this.TbPays.Text = hotel.Pays;
-
-        //            ActiverDesactiverControlesHotels(true);
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            throw new Exception(ex.Message);
-        //        }
-        //    }
-        //}
-
-        //en test
-        //public ICommand RazPageHotel
-        //{
-        //    get
-        //    {
-        //        return razPageHotel;
-        //    }
-        //}
-
-        //private ICommand razPageHotel = new RelayCommand<HotelsSet>((hotel) =>
-        //{
-        //    hotel.Nom = "";
-        //    hotel.Capacite = 0;
-        //    hotel.Localisation = "";
-        //    hotel.Pays = "";
-        //});
-        //¤ ce boutons ajout ne sont pas fonctionnels (Icommand)
-
+        
     }
 }
